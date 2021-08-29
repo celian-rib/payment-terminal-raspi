@@ -31,3 +31,8 @@ Voir les tables présentes : ```.table```
 Executer du SQL : ```<CMD SQL> ;```
 
 Ex : ```SELECT * FROM SCANS;```
+
+
+## Mettre à jour le requirement.txt
+
+```pip3 freeze > requirement.txt```
