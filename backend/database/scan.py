@@ -1,9 +1,10 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.sql.sqltypes import Date, DateTime
+from sqlalchemy_serializer import SerializerMixin
 from database.database import Base
 from datetime import datetime
 
-class Scan(Base):
+class Scan(Base, SerializerMixin):
     __tablename__ = 'scans'
     id = Column(Integer, primary_key=True)
     date = Column(DateTime, unique=False, default=datetime.now)
