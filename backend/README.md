@@ -1,9 +1,15 @@
 ### Setup
-to do
+
+Installer python3
+
+Installer tous les modules python
+```pip install -r requirement.txt```
+
 
 ## Start backend
 
 ```python3 app.py```
+
 
 ## Tester un endpoint
 
@@ -14,6 +20,7 @@ Comment tester une requète sur un endpoint de l'api (Ex: http://localhost/api/s
     ```curl http://127.0.0.1:5000/api/users -X GET```
 
 - Avec l'application postman
+
 
 ## Entrer manuellement dans la bd
 
