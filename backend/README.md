@@ -40,3 +40,16 @@ Ex : ```SELECT * FROM SCANS;```
 ## Mettre à jour le requirement.txt
 
 ```pip3 freeze > requirement.txt```
+
+
+## Build docker image
+
+```docker image build -t asso-card-backend .```
+
+## Run docker image
+
+```docker run -p 5000:5000 -v $(pwd)/db:/usr/src/app/db -d backend```
+
+## Explore docker container
+
+```docker exec -t -i <container> /bin/bash```

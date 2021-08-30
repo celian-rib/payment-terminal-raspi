@@ -1,8 +1,13 @@
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine('sqlite:///dev.sqlite3')
+if os.environ.get('PROD') == None :
+    engine = create_engine('sqlite:///db/dev.sqlite3')
+else :
+    engine = create_engine('sqlite:///db/prod.sqlite3')
 
 _SessionFactory = scoped_session(sessionmaker(bind=engine))
 
