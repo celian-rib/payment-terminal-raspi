@@ -1,10 +1,7 @@
 from flask import abort
-from flask_restx import Resource, Namespace
+from flask_restx import Resource, Namespace, fields
 
 from .utils import abort_if_doesnt_exist
-
-from webargs import fields
-from webargs.flaskparser import use_args
 
 from database.database import Database
 from database.scan import Scan
@@ -12,24 +9,25 @@ from database.user import User
 
 ns = Namespace('scans', description='Card scanning related operations')
 
-SCAN_PARAMS = {
-    "cardId": fields.Str(required=True),
+SCAN_PARAMS = ns.model('Scan post parameter', {
+    "cardId": fields.String(required=True),
     "transactionValue": fields.Float(required=True)
-}
+})
 
 @ns.route('/scans')
 class Scans(Resource):
-    @use_args(SCAN_PARAMS)
-    def post(self, params):
+    @ns.expect(SCAN_PARAMS, validate=True)
+    def post(self, **kwargs):
 
-        if not params:
-            abort(400, 'No parameters provided')
+        card_id = str(ns.payload["cardId"])
+        currency_amount = float(ns.payload["transactionValue"])
 
-        card_id = params.get('cardId', None)
-        currency_amount = params.get('transactionValue', None)
-
-        abort_if_doesnt_exist(card_id, currency_amount,
-                              message="Missing parameter")
+        abort_if_doesnt_exist(
+            card_id, 
+            currency_amount,
+            message="Server could not get parameters properly",
+            code=500
+        )
 
         transaction_status = None
         transaction_date = None
@@ -39,7 +37,8 @@ class Scans(Resource):
 
         with Database(auto_commit=True) as db:
 
-            unkown_card = db.query(User).filter_by(card_id=card_id).count() == 0
+            unkown_card = db.query(User).filter_by(
+                card_id=card_id).count() == 0
 
             if unkown_card:
                 if currency_amount >= 0:
@@ -62,7 +61,8 @@ class Scans(Resource):
 
             db.commit()
 
-            abort_if_doesnt_exist(user, message="Server error : no user found and could not be created", code=500)
+            abort_if_doesnt_exist(
+                user, message="Server error : no user found and could not be created", code=500)
 
             card_currency = user.currency_amount
             transaction_date = str(scan.date)

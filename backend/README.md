@@ -8,7 +8,7 @@ Installer tous les modules python
 
 ## Start backend
 
-```python3 app.py```
+```python3 src/app.py``` (Depuis dossier backend)
 
 
 ## Tester un endpoint
@@ -39,16 +39,16 @@ Ex : ```SELECT * FROM SCANS;```
 
 ## Mettre à jour le requirement.txt
 
-```pip3 freeze > requirement.txt```
+```pip3 freeze > requirement.txt``` (Depuis dossier backend)
 
 
 ## Build docker image
 
-```docker image build -t asso-card-backend .```
+```docker image build -t backend .``` (Depuis dossier backend)
 
 ## Run docker image
 
-```docker run -p 5000:5000 -v $(pwd)/db:/usr/src/app/db -d backend```
+```docker run -p 5000:5000 -v $(pwd)/db:/usr/src/app/db -d backend``` (Depuis dossier backend)
 
 ## Explore docker container
 

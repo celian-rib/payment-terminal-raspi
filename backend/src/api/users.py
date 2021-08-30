@@ -24,7 +24,9 @@ class SignelUser(Resource):
 		user = None
 
 		with Database(auto_commit=True) as db :
-			user = db.query(User).filter(User.card_id == card_id).first().to_dict()
+			user = db.query(User).filter(User.card_id == card_id).first()
+			if user :
+				user = user.to_dict()
 
 		abort_if_doesnt_exist(user, code=400, message="No user found with this card id")
 
