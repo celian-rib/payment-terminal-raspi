@@ -1,6 +1,6 @@
-from py532lib.i2c import *
-from py532lib.frame import *
-from py532lib.constants import *
+from libs.py532lib.py532lib.i2c import *
+from libs.py532lib.py532lib.frame import *
+from libs.py532lib.py532lib.constants import *
 
 pn532 = Pn532_i2c()
 pn532.SAMconfigure()
