@@ -1,24 +1,49 @@
+## Raspberry PI setup
 
-## Cartes RFID
+Os : Raspberry PI OS Lite
 
-Tag bleu :
-ISO/IEC 14443-3 (Type A)
+- Create "ssh" file in the boot partition
 
-Carte blanche MIFARE Classic:
-ISO/IEC 14443-3 (Type A)
+- Create ```wpa_supplicant.conf``` file with the following content :
+```
+country=FR
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+network={
+    ssid="YOUR_NETWORK_NAME"
+    psk="YOUR_PASSWORD"
+}
+```
 
-Carte Izly **MIFARE DESFire EV1** (MF3ICD21):
-ISO/IEC 7816-4
-Native DESFire APDU framing
-IO/IEC 14443-4 (Type A)
-IO/IEC 14443-3 (Type A)
-IO/IEC 14443-2 (Type A)
+- Start the Pi and connect over ssh
 
-Carte TBM :
-ISO/IEC 7816-4
-ISO/IEC 14443-4
-ISO/IEC 14443-3
-ISO/IEC 14443-2
+- Open config window and enable i2c in Interface settings
+    - ```sudo raspi-config```
 
-***
-Remark: The MFRC522 supports all variants of the MIFARE Mini, MIFARE 1K, MIFARE 4K, MIFARE Ultralight, **MIFARE DESFire EV1** and MIFARE Plus RF identification protocols
+- Update packages 
+    - ```sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoclean && sudo apt-get autoremove ```
+
+- Install git 
+    - ```sudo apt-get install git```
+
+- Clone project (May need ssh key)
+    - ```git@github.com:celian-rib/asso-card.git```
+
+
+- (Optional) Install zsh
+    - ```sudo apt install zsh```
+
+    - Install oh my zsh because its looks cool 
+    ```sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"```
+
+    - Make hostname visible 
+    ```echo "PROMPT='%{$fg_bold[cyan]%}$USER%{$fg_bold[blue]%}@%m%}%{$fg_bold[cyan]%} %c $(git_prompt_info)%{$reset_color%}'" >> ~/.zshrc```
+
+- Fresh restart 
+    - ```sudo reboot```
+
+## I2C setup
+
+
+## Wiring
+
+TODO
