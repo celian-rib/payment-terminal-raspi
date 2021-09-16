@@ -30,6 +30,13 @@ step () {
 }
 
 
+title "Mode selection"
+echo
+echo "${yellow}- Build only      [b]${reset}"
+echo "${cyan}- Build and Run   [r]${reset}"
+echo "${green}- Run last builds [l]${reset}"
+read mode
+
 title "Starting backend application"
 
 if test "$(docker ps | wc -l)" -gt 1 ;then
@@ -38,7 +45,9 @@ else
     success "No container running found"
 fi
 
-step "Build backend image" "docker image build -t backend ./backend"
+if test "$mode" = "b" || test "$mode" = "r"; then
+    step "Build backend image" "docker image build -t backend ./backend"
+fi
 
 step "Run backend container" "docker run -p 5000:5000 -v $(pwd)/backend/db:/usr/src/app/db -d backend"
 

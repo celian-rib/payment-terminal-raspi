@@ -28,7 +28,6 @@ network={
 - Clone project (May need ssh key)
     - ```git@github.com:celian-rib/asso-card.git```
 
-
 - (Optional) Install zsh
     - ```sudo apt install zsh```
 
