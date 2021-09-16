@@ -38,6 +38,9 @@ network={
     - Make hostname visible 
     ```echo "PROMPT='%{$fg_bold[cyan]%}$USER%{$fg_bold[blue]%}@%m%}%{$fg_bold[cyan]%} %c $(git_prompt_info)%{$reset_color%}'" >> ~/.zshrc```
 
+- Install docker
+    - ```curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh```
+
 - Fresh restart 
     - ```sudo reboot```
 
