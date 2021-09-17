@@ -14,10 +14,10 @@ sys.path.append(lib_path)
 
 from time import sleep
 import logging
+from quick2wire.i2c import I2CMaster, reading, writing
 from py532lib.i2c import *
 from py532lib.frame import *
 from py532lib.constants import *
-from quick2wire.i2c import I2CMaster, reading, writing
 
 
 LOGGING_ENABLED = False
