@@ -32,7 +32,7 @@ Executer du SQL : ```<CMD SQL> ;```
 
 Ex : ```SELECT * FROM SCANS;```
 
-## Ajouter une table
+## Ajouter un attribut dans une table
 
 ```ALTER TABLE <table> ADD COLUMN "nom_col" BOOLEAN DEFAULT FALSE```
 

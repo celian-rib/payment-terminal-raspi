@@ -6,15 +6,16 @@ from datetime import datetime
 
 class User(Base, SerializerMixin):
     __tablename__ = 'users'
-    card_id = Column(String, primary_key=True, autoincrement=False)
+    user_id = Column(Integer, primary_key=True, autoincrement=True)
+    card_uid = Column(String, nullable=False)
     creation_date = Column(DateTime, default=datetime.now)
     currency_amount = Column(Float, default=0)
     name = Column(String, default=None)
     first_name = Column(String, default=None)
     email = Column(String, default=None)
 
-    def __init__(self, card_id, currency_amount):
-        self.card_id = card_id
+    def __init__(self, card_uid, currency_amount):
+        self.card_uid = card_uid
         self.currency_amount = currency_amount
 
     def __repr__(self):
