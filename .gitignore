@@ -1,4 +1,4 @@
 __pycache__/
 hardware/src/libs
-hardware/src/quick3wire
+hardware/src/quick2wire
 hardware/src/py532lib
