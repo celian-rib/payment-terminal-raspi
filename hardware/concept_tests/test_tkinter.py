@@ -8,6 +8,11 @@ window = Tk()
 window.attributes("-fullscreen", True)
 window.title("Hello world")
 
+screen_width = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
+print(screen_width)
+print(screen_height)
+
 lbl = Label(window, text="Hello")
 
 lbl.grid(column=0, row=0)
