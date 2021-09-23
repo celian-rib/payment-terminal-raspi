@@ -9,6 +9,7 @@ class User(Base, SerializerMixin):
     user_id = Column(Integer, primary_key=True, autoincrement=True)
     card_uid = Column(String, nullable=False)
     creation_date = Column(DateTime, default=datetime.now)
+    update_date = Column(DateTime, default=None)
     currency_amount = Column(Float, default=0)
     name = Column(String, default=None)
     first_name = Column(String, default=None)

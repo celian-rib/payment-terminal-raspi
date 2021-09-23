@@ -3,7 +3,7 @@
 Installer python3
 
 Installer tous les modules python
-```pip install -r requirement.txt```
+```pip3 install -r requirement.txt```
 
 
 ## Start backend

@@ -14,8 +14,9 @@ SCAN_PARAMS = ns.model('Scan post parameter', {
     "transactionValue": fields.Float(required=True)
 })
 
-@ns.route('/scans')
+@ns.route('/scan')
 class Scans(Resource):
+    
     @ns.expect(SCAN_PARAMS, validate=True)
     def post(self, **kwargs):
 
@@ -33,7 +34,6 @@ class Scans(Resource):
         transaction_date = None
         unkown_card = None
         user = None
-        use_id = None
         card_currency = None
 
         with Database(auto_commit=True) as db:
