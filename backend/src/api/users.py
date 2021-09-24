@@ -27,8 +27,36 @@ USER_UPDATE_PARAMS = ns.model('Updating user parameter', {
     "email": fields.String(required=True)
 })
 
-@ns.route('/user/<card_uid>')
+@ns.route('/user/user_id/<user_id>')
 class SingleUser(Resource):
+    def get(self, user_id):
+        user = None
+
+        with Database(auto_commit=True) as db:
+            user = db.query(User).filter_by(user_id=user_id).first()
+            if user:
+                user = user.to_dict()
+
+        abort_if_doesnt_exist(
+            user, 
+            code=400, 
+            message="No user found with this user id"
+        )
+
+        return jsonify(user)
+
+    @ns.expect(USER_UPDATE_PARAMS, validate=True)
+    def post(self, user_id, **kwargs):
+        return update_user(
+            card_uid=None,
+            user_id=user_id,
+            name=str(ns.payload["name"]),
+            first_name=str(ns.payload["firstName"]),
+            email=str(ns.payload["email"])
+        )
+
+@ns.route('/user/card_uid/<card_uid>')
+class SingleUserCardUID(Resource):
     def get(self, card_uid):
         user = None
 
@@ -38,15 +66,26 @@ class SingleUser(Resource):
                 user = user.to_dict()
 
         abort_if_doesnt_exist(
-            user, code=400, message="No user found with this card id")
+            user, 
+            code=400, 
+            message="No user found with this card id"
+        )
 
         return jsonify(user)
 
     @ns.expect(USER_UPDATE_PARAMS, validate=True)
     def post(self, card_uid, **kwargs):
-        name = str(ns.payload["name"])
-        first_name = str(ns.payload["firstName"])
-        email = str(ns.payload["email"])
+        return update_user(
+            card_uid=card_uid,
+            user_id=None,
+            name=str(ns.payload["name"]),
+            first_name=str(ns.payload["firstName"]),
+            email=str(ns.payload["email"])
+        )
+
+def update_user(card_uid, user_id, name, first_name, email):
+
+    with Database(auto_commit=True) as db:
 
         abort_if_doesnt_exist(
             name, 
@@ -56,14 +95,14 @@ class SingleUser(Resource):
             code=500
         )
 
-        with Database(auto_commit=True) as db:
-            user = db.query(User).filter_by(card_uid=card_uid).first()
-            abort_if_doesnt_exist(user, code=400, message="No user found with this card id")
+        user = db.query(User).filter_by(card_uid=card_uid).first() if card_uid \
+            else db.query(User).filter_by(user_id=user_id).first()
+        abort_if_doesnt_exist(user, code=400, message="No user found with this card id")
 
-            user.update_date = datetime.now()
-            user.name = name
-            user.first_name = first_name
-            user.email = email
-            db.commit()
+        user.update_date = datetime.now()
+        user.name = name
+        user.first_name = first_name
+        user.email = email
+        db.commit()
 
-        return True
+    return True
