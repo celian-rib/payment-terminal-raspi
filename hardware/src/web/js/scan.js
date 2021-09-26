@@ -43,16 +43,12 @@ window.onload = function() {
     }, false);
 
     if (document.getElementById("ajout"))
-        document.getElementById("ajout").addEventListener("click", () => { eel.debut_transaction(-(price / 100)) }, false);
+        document.getElementById("ajout").addEventListener("click", () => { goToWait(-price) }, false);
     if (document.getElementById("debit"))
-        document.getElementById("debit").addEventListener("click", () => { eel.debut_transaction(price / 100) }, false);
+        document.getElementById("debit").addEventListener("click", () => { goToWait(price) }, false);
 };
 
-
-
-eel.expose(go_to_wait);
-
-function go_to_wait() {
+function goToWait(price) {
     window.location.replace("../pages/nfc.html?" + price);
 }
 

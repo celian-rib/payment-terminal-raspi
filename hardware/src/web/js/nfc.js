@@ -6,10 +6,10 @@ const delay = 200;
 const showPrice = (price) => {
     if ((price / 100) % 1 != 0) {
         //decimal number
-        document.getElementById("priceText").innerHTML = (price / 100) + "0€"
+        document.getElementById("priceText").innerHTML = (price > 0 ? "+" : "") + (price / 100) + "0€"
     } else {
         // non decimal number
-        document.getElementById("priceText").innerHTML = (price / 100) + ".00€"
+        document.getElementById("priceText").innerHTML = (price > 0 ? "+" : "") + (price / 100) + ".00€"
     }
 }
 
@@ -38,14 +38,6 @@ window.onload = function() {
     anim()
 }
 
-// eel.expose(set_price);
-
-// function set_price(_price) {
-//     price = _price
-//     document.getElementById("priceText").innerHTML = price;
-// }
-
-// function from SO
 function parseURLParams(url) {
     var queryStart = url.indexOf("?") + 1,
         queryEnd = url.indexOf("#") + 1 || url.length + 1,
@@ -66,7 +58,3 @@ function parseURLParams(url) {
     }
     return parms;
 }
-
-
-// parseURLParams("www.mints.com?name=something")
-// {name: ["something"]}

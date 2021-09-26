@@ -38,6 +38,7 @@ p#value {
     color: white;
     font-weight: bolder;
     font-size: 150%;
+    letter-spacing: 3px;
 }
 
 a {
@@ -52,6 +53,7 @@ a {
     margin-left: 7.5px;
     margin-top: 8px;
     border-radius: 15px;
+    color: white;
 }
 
 a#but1 {

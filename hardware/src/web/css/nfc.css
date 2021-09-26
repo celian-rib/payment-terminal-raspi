@@ -24,6 +24,7 @@ div {
 
 div.price {
     font-size: 200%;
+    letter-spacing: 5px;
 }
 
 #logoContainer {
