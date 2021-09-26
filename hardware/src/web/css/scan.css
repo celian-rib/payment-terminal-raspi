@@ -54,19 +54,19 @@ a {
     border-radius: 15px;
 }
 
-a.but1 {
+a#but1 {
     grid-area: price1;
 }
 
-a.but2 {
+a#but2 {
     grid-area: price2;
 }
 
-a.but3 {
+a#but3 {
     grid-area: price4;
 }
 
-a.but4 {
+a#but4 {
     grid-area: price5;
 }
 
