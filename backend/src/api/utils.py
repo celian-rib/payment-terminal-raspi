@@ -1,4 +1,19 @@
-from flask import abort
+from functools import wraps
+from flask import abort, request, jsonify
+
+def authentification_required(f):
+    @wraps(f)
+    def inner(*args, **kwargs):
+        token = None
+        if 'x-access-tokens' in request.headers:
+            token = request.headers['x-access-tokens']
+        # if not token:
+        #     abort(401, "No token provided")
+        # if token != "secret-token":
+        #     abort(401, "Invalid token")
+        print("/!\ No authentication implemented")
+        f(*args, **kwargs)
+    return inner
 
 
 def abort_if_doesnt_exist(*objs, message=None, code=400):

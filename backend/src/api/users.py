@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from flask_restx import Resource, Namespace, fields
 
-from .utils import abort_if_doesnt_exist
+from .utils import abort_if_doesnt_exist, authentification_required
 
 from database.user import User
 from database.database import Database
@@ -12,6 +12,7 @@ ns = Namespace('users', description='Users related operations')
 
 @ns.route('/users')
 class Users(Resource):
+    @authentification_required
     def get(self):
         user_list = []
         with Database(auto_commit=True) as db:
@@ -29,6 +30,7 @@ USER_UPDATE_PARAMS = ns.model('Updating user parameter', {
 
 @ns.route('/user/user_id/<user_id>')
 class SingleUser(Resource):
+    @authentification_required
     def get(self, user_id):
         user = None
 
@@ -46,7 +48,8 @@ class SingleUser(Resource):
         return jsonify(user)
 
     @ns.expect(USER_UPDATE_PARAMS, validate=True)
-    def post(self, user_id, **kwargs):
+    @authentification_required
+    def put(self, user_id, **kwargs):
         return update_user(
             card_uid=None,
             user_id=user_id,
@@ -57,6 +60,7 @@ class SingleUser(Resource):
 
 @ns.route('/user/card_uid/<card_uid>')
 class SingleUserCardUID(Resource):
+    @authentification_required
     def get(self, card_uid):
         user = None
 
@@ -74,7 +78,8 @@ class SingleUserCardUID(Resource):
         return jsonify(user)
 
     @ns.expect(USER_UPDATE_PARAMS, validate=True)
-    def post(self, card_uid, **kwargs):
+    @authentification_required
+    def put(self, card_uid, **kwargs):
         return update_user(
             card_uid=card_uid,
             user_id=None,

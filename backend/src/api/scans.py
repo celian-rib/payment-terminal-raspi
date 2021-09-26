@@ -1,7 +1,7 @@
 from flask import abort
 from flask_restx import Resource, Namespace, fields
 
-from .utils import abort_if_doesnt_exist
+from .utils import abort_if_doesnt_exist, authentification_required
 
 from database.database import Database
 from database.scan import Scan
@@ -18,6 +18,7 @@ SCAN_PARAMS = ns.model('Scan post parameter', {
 class Scans(Resource):
     
     @ns.expect(SCAN_PARAMS, validate=True)
+    @authentification_required
     def post(self, **kwargs):
 
         card_uid = str(ns.payload["cardId"])
