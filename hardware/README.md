@@ -44,6 +44,8 @@ network={
 
     - En cas d'Erreur avec startx ```sudo mv /usr/share/X11/xorg.conf.d/99-fbturbo.conf ~```
 
+    - Auto start point : ```sudo nano /etc/xdg/openbox/autostart```
+
 - Fresh restart 
     - ```sudo reboot```
 
