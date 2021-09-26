@@ -11,7 +11,9 @@ body {
 }
 
 img.imgValid {
+    margin-top: 7%;
     margin-left: 45%;
+    width: 10%;
 }
 
 div {
@@ -23,8 +25,8 @@ div {
 }
 
 div.valid {
-    margin-top: 5%;
     font-size: 150%;
+    height: 15%;
     color: #4f7abc;
 }
 

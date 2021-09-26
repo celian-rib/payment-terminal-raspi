@@ -1,88 +1,92 @@
-    body {
-        background-color: #101a24;
-        width: 100vw;
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        overflow-y: hidden;
-        overflow-x: hidden;
-    }
-    
-    div.mainContainer {
-        margin: 0;
-        width: 100%;
-        height: 70%;
-        overflow-y: hidden;
-        overflow-x: hidden;
-        display: grid;
-        grid-template-areas: "vd0 vd1 vd2 vd3 vd4" "price1 price2 price3 price4 price5" "vdd0 vdd1 vdd2 vdd3 vdd4";
-        grid-template-columns: 1fr 1fr 2.5fr 1fr 1fr;
-        grid-template-rows: repeat(3, 1fr);
-    }
-    
-    p#value {
-        grid-area: price3;
-        align-self: center;
-        text-align: center;
-        color: white;
-        font-weight: bolder;
-        font-size: 150%;
-    }
-    
-    button {
-        width: 80%;
-        height: 80%;
-        background-color: rgb(114, 122, 150);
-        border-color: rgb(114, 122, 150);
-        margin-left: 7.5px;
-        margin-top: 8px;
-        border-radius: 15px;
-    }
-    
-    button.but1 {
-        grid-area: price1;
-    }
-    
-    button.but2 {
-        grid-area: price2;
-    }
-    
-    button.but3 {
-        grid-area: price4;
-    }
-    
-    button.but4 {
-        grid-area: price5;
-    }
-    
-    div.footContain {
-        display: grid;
-        grid-template-areas: "button1 button2";
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr;
-        width: 100%;
-        height: 30%;
-    }
-    
-    div.footContain button {
-        margin-left: 24px;
-        color: white;
-        font-size: 120%;
-        font-weight: bolder;
-    }
-    
-    button.ajout {
-        grid-area: button1;
-        background-color: #4f7abc;
-        -webkit-box-shadow: 0px 0px 40px 0px #4f7abc;
-        box-shadow: 0px 0px 40px 0px #4f7abc;
-    }
-    
-    button.debit {
-        grid-area: button2;
-        background-color: #7f4fbc;
-        -webkit-box-shadow: 0px 0px 40px 0px #7f4fbc;
-        box-shadow: 0px 0px 40px 0px #7f4fbc;
-    }
+body {
+    background-color: #101a24;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+div.mainContainer {
+    margin: 0;
+    width: 100%;
+    height: 70%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-areas: "vd0 vd1 vd2 vd3 vd4" "price1 price2 price3 price4 price5" "vdd0 vdd1 vdd2 vdd3 vdd4";
+    grid-template-columns: 1fr 1fr 2.5fr 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+}
+
+p#value {
+    grid-area: price3;
+    align-self: center;
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+    font-size: 150%;
+}
+
+a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    height: 80%;
+    background-color: rgb(114, 122, 150);
+    border-color: rgb(114, 122, 150);
+    margin-left: 7.5px;
+    margin-top: 8px;
+    border-radius: 15px;
+}
+
+a.but1 {
+    grid-area: price1;
+}
+
+a.but2 {
+    grid-area: price2;
+}
+
+a.but3 {
+    grid-area: price4;
+}
+
+a.but4 {
+    grid-area: price5;
+}
+
+div.footContain {
+    display: grid;
+    grid-template-areas: "a1 a2";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    height: 30%;
+}
+
+div.footContain a {
+    margin-left: 24px;
+    color: white;
+    font-size: 120%;
+    font-weight: bolder;
+}
+
+a.ajout {
+    grid-area: a1;
+    background-color: #4f7abc;
+    -webkit-box-shadow: 0px 0px 40px 0px #4f7abc;
+    box-shadow: 0px 0px 40px 0px #4f7abc;
+}
+
+a.debit {
+    grid-area: a2;
+    background-color: #7f4fbc;
+    -webkit-box-shadow: 0px 0px 40px 0px #7f4fbc;
+    box-shadow: 0px 0px 40px 0px #7f4fbc;
+}
