@@ -9,8 +9,8 @@ print("Starting web server...")
 
 # 480,320
 
-bashCmd = ["chromium-browser", "--kiosk", "http://localhost:8000/"]
-process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE)
+# bashCmd = ["chromium-browser", "--kiosk", "http://localhost:8000/"]
+# process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE)
 
 eel.init('web')
 
@@ -22,6 +22,6 @@ def hello_world():
 
 print("Web server started on port 8000")
 
-# eel.start('./index.html', mode=None, host='0.0.0.0')
-eel.start('index.html', mode='chrome', host='0.0.0.0', cmdline_args=['--window-size=480,320', '--window-position=0,0', '--start-fullscreen', '--kiosk'])
+eel.start('./index.html', mode=None, host='0.0.0.0')
+# eel.start('index.html', mode='chrome', host='0.0.0.0', cmdline_args=['--window-size=480,320', '--window-position=0,0', '--start-fullscreen', '--kiosk'])
 print("Web server terminated")
