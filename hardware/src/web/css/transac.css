@@ -1,0 +1,41 @@
+body {
+    background-color: #101a24;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+img.imgValid {
+    margin-left: 45%;
+}
+
+div {
+    color: white;
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+div.valid {
+    margin-top: 5%;
+    font-size: 150%;
+    color: #4f7abc;
+}
+
+div.money {
+    font-size: 120%;
+}
+
+div.numClient {
+    font-size: 120%;
+}
+
+div.reason {
+    color: red;
+}
