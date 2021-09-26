@@ -9,6 +9,7 @@ if (document.getElementById("goToScan"))
 if (document.getElementById("goToHome"))
     document.getElementById("goToHome").addEventListener("click", () => { gotTo('../index.html') }, false);
 
+
 eel.expose(prompt_alerts);
 
 function prompt_alerts(description) {
