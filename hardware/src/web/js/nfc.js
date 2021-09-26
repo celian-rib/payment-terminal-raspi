@@ -13,7 +13,7 @@ const showPrice = (price) => {
     }
 }
 
-window.onload = function () {
+window.onload = function() {
     console.log(window.location.href)
     const urlData = parseURLParams(window.location.href);
     price = Object.keys(urlData)[0];

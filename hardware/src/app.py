@@ -36,6 +36,6 @@ def debut_transaction(price):
 
 print("Web server started on port 8000")
 
-eel.start('./index.html', mode=None, host='0.0.0.0')
-# eel.start('index.html', mode='chrome', host='0.0.0.0', cmdline_args=['--window-size=480,320', '--window-position=0,0', '--start-fullscreen', '--disable-features=Translate', '--kiosk'])
+# eel.start('./index.html', mode=None, host='0.0.0.0')
+eel.start('index.html', mode='chrome', host='0.0.0.0', cmdline_args=['--window-size=480,320', '--window-position=0,0', '--start-fullscreen', '--disable-features=Translate', '--kiosk'])
 print("Web server terminated")
