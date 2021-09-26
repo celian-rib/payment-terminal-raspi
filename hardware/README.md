@@ -38,9 +38,11 @@ network={
 - Install touch screen driver (This will restart the pi)
     - ```git clone https://github.com/waveshare/LCD-show.git && ./LCD-show/LCD35B-show-V2```
 
-- Install GUI components
+- Install GUI components (https://desertbot.io/blog/raspberry-pi-touchscreen-kiosk-setup)
     - ```sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox```
     - ```sudo apt-get install --no-install-recommends chromium-browser```
+
+    - En cas d'Erreur avec startx ```sudo mv /usr/share/X11/xorg.conf.d/99-fbturbo.conf ~```
 
 - Fresh restart 
     - ```sudo reboot```

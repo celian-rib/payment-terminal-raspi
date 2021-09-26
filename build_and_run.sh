@@ -6,8 +6,6 @@ cyan=`tput setaf 6`
 yellow=`tput setaf 3`
 reset=`tput sgr0`
 
-ARG=$1
-
 error () {
     echo
     echo
