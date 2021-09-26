@@ -14,6 +14,8 @@ print("Starting web server...")
 
 eel.init('web')
 
+# current_transaction_price = -1
+
 @eel.expose
 def hello_world():
     print("hellow world from python")
@@ -22,8 +24,15 @@ def hello_world():
 @eel.expose
 def debut_transaction(price):
     print(price)
+    # current_transaction_price = price
+    # print(current_transaction_price)
     eel.go_to_wait()
 
+# @eel.expose
+# def request_transaction_price():
+#     print("Price requested")
+#     print(current_transaction_price)
+#     eel.set_price(current_transaction_price)
 
 print("Web server started on port 8000")
 

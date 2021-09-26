@@ -48,6 +48,14 @@ window.onload = function() {
         document.getElementById("debit").addEventListener("click", () => { eel.debut_transaction(price / 100) }, false);
 };
 
+
+
+eel.expose(go_to_wait);
+
+function go_to_wait() {
+    window.location.replace("../pages/nfc.html?" + price);
+}
+
 const showPrice = (price) => {
     if ((price / 100) % 1 != 0) {
         //decimal number
@@ -56,10 +64,4 @@ const showPrice = (price) => {
         // non decimal number
         priceText.innerHTML = (price / 100) + ".00€"
     }
-}
-
-eel.expose(go_to_wait);
-
-function go_to_wait() {
-    window.location.replace("../pages/nfc.html");
 }
