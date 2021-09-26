@@ -22,6 +22,15 @@ div.mainContainer {
     grid-template-rows: repeat(3, 1fr);
 }
 
+img#goToHome {
+    display: flex;
+    align-items: center;
+    margin-top: 7.5px;
+    grid-area: vd0;
+    width: 80%;
+    transform: scale(0.4);
+}
+
 p#value {
     grid-area: price3;
     align-self: center;

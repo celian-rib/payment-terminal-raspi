@@ -42,14 +42,15 @@ img.invert {
 
 a#helloWorldButton {
     background-color: #4f7abc;
-    grid-area: areaFive;
+    grid-area: areaHeight;
     -webkit-box-shadow: 0px 0px 40px 0px #4f7abc;
     box-shadow: 0px 0px 40px 0px #4f7abc;
 }
 
-a#goToScan, a#goToHome {
+a#goToScan,
+a#goToHome {
     background-color: #7f4fbc;
-    grid-area: areaHeight;
+    grid-area: areaFive;
     -webkit-box-shadow: 0px 0px 40px 0px #7f4fbc;
     box-shadow: 0px 0px 40px 0px #7f4fbc;
 }
