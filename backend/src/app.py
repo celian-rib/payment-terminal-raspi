@@ -4,6 +4,7 @@ from flask import Flask
 from api import api
 from database.database import init_db
 from backup import check_if_backup_required
+from waitress import serve
 
 if __name__ == '__main__':
     app = Flask(__name__)
@@ -17,4 +18,5 @@ if __name__ == '__main__':
     else :
         # Production schema
         check_if_backup_required()
-        app.run(debug=False, port=5000, host="0.0.0.0")
+        print("App started in production")
+        serve(app, port=5000, host="0.0.0.0")
