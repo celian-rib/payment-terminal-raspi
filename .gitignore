@@ -3,3 +3,4 @@ hardware/src/libs
 hardware/src/quick2wire
 hardware/src/py532lib
 hardware/src/.backup_timestamp
+.env

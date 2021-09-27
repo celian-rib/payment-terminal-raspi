@@ -10,7 +10,7 @@ from database.user import User
 ns = Namespace('scans', description='Card scanning related operations')
 
 SCAN_PARAMS = ns.model('Scan post parameter', {
-    "cardId": fields.String(required=True),
+    "cardUID": fields.String(required=True),
     "transactionValue": fields.Float(required=True)
 })
 
@@ -18,10 +18,10 @@ SCAN_PARAMS = ns.model('Scan post parameter', {
 class Scans(Resource):
     
     @ns.expect(SCAN_PARAMS, validate=True)
-    #@authentification_required
+    @authentification_required
     def post(self, **kwargs):
 
-        card_uid = str(ns.payload["cardId"])
+        card_uid = str(ns.payload["cardUID"])
         currency_amount = float(ns.payload["transactionValue"])
 
         abort_if_doesnt_exist(

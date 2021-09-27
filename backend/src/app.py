@@ -5,8 +5,10 @@ from api import api
 from database.database import init_db
 from backup import check_if_backup_required
 from waitress import serve
+from dotenv import load_dotenv
 
 if __name__ == '__main__':
+    load_dotenv()
     app = Flask(__name__)
 
     api.init_app(app)
