@@ -6,6 +6,9 @@ if (document.getElementById("helloWorldButton"))
 if (document.getElementById("goToScan"))
     document.getElementById("goToScan").addEventListener("click", () => { gotTo('./pages/scan.html') }, false);
 
+if (document.getElementById("goToStats"))
+    document.getElementById("goToStats").addEventListener("click", () => { gotTo('./pages/stats.html') }, false);
+
 if (document.getElementById("goToHome"))
     document.getElementById("goToHome").addEventListener("click", () => { gotTo('../index.html') }, false);
 
