@@ -12,7 +12,7 @@ ns = Namespace('users', description='Users related operations')
 
 @ns.route('/users')
 class Users(Resource):
-    @authentification_required
+    #@authentification_required
     def get(self):
         user_list = []
         with Database(auto_commit=True) as db:
@@ -30,7 +30,7 @@ USER_UPDATE_PARAMS = ns.model('Updating user parameter', {
 
 @ns.route('/user/user_id/<user_id>')
 class SingleUser(Resource):
-    @authentification_required
+    #@authentification_required
     def get(self, user_id):
         user = None
 
@@ -48,7 +48,7 @@ class SingleUser(Resource):
         return jsonify(user)
 
     @ns.expect(USER_UPDATE_PARAMS, validate=True)
-    @authentification_required
+    #@authentification_required
     def put(self, user_id, **kwargs):
         return update_user(
             card_uid=None,
@@ -60,7 +60,7 @@ class SingleUser(Resource):
 
 @ns.route('/user/card_uid/<card_uid>')
 class SingleUserCardUID(Resource):
-    @authentification_required
+    #@authentification_required
     def get(self, card_uid):
         user = None
 
@@ -78,7 +78,7 @@ class SingleUserCardUID(Resource):
         return jsonify(user)
 
     @ns.expect(USER_UPDATE_PARAMS, validate=True)
-    @authentification_required
+    #@authentification_required
     def put(self, card_uid, **kwargs):
         return update_user(
             card_uid=card_uid,
