@@ -15,3 +15,10 @@ eel.expose(prompt_alerts);
 function prompt_alerts(description) {
     alert(description);
 }
+
+eel.expose(get_current_url)
+
+function get_current_url() {
+    console.log(window.location.href);
+    return window.location.href;
+}

@@ -14,10 +14,18 @@ const showPrice = (price) => {
 }
 
 window.onload = function() {
+    // fonctionnement du bouton retour
+    if (document.getElementById("imgBack")) {
+        document.getElementById("imgBack").addEventListener("click", () => { gotTo('../index.html') }, false);
+    }
+
     console.log(window.location.href)
     const urlData = parseURLParams(window.location.href);
     price = Object.keys(urlData)[0];
     showPrice(price);
+
+    // appel de la fonction de scan de carte
+    eel.await_card_scan(price);
 
     const text = document.getElementById("textWriter");
     const anim = () => {
@@ -57,4 +65,16 @@ function parseURLParams(url) {
         parms[n].push(nv.length === 2 ? v : null);
     }
     return parms;
+}
+
+eel.expose(scan_complete)
+
+function scan_complete(money, userID) {
+    window.location.replace("../pages/validTransac.html?money=" + money + "&userID=" + userID);
+}
+
+eel.expose(scan_cancel)
+
+function scan_cancel(money, userID, reason) {
+    window.location.replace("../pages/unvalidTransac.html?money=" + money + "&userID=" + userID + "&reason=" + reason);
 }
