@@ -2,6 +2,7 @@
 
 import eel
 from sys import platform
+import server
 
 print("Starting web server...")
 
@@ -50,11 +51,18 @@ def await_card_scan(price):
     else:
         print("User left transaction")
 
+@eel.expose
+def get_stats():
+    print("Retreiving stats")
+    stats = server.get_stats().json()
+    print(stats)
+    return stats
 
 print("Web server started on port 8000")
 
 
-if platform == "linux" or platform == "linux2":
+# if platform == "linux" or platform == "linux2":
+if False:
     eel.start(
         'index.html',
         mode='chrome',
