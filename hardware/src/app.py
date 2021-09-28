@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import eel
-from sys import platform
+import os
 import server
 
 print("Starting web server...")
@@ -61,8 +61,7 @@ def get_stats():
 print("Web server started on port 8000")
 
 
-# if platform == "linux" or platform == "linux2":
-if False:
+if os.uname().nodename == 'raspberrypi':
     eel.start(
         'index.html',
         mode='chrome',
