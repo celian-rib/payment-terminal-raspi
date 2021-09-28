@@ -16,7 +16,7 @@ const showPrice = (price) => {
 window.onload = function() {
     // fonctionnement du bouton retour
     if (document.getElementById("imgBack")) {
-        document.getElementById("imgBack").addEventListener("click", () => { gotTo('../index.html') }, false);
+        document.getElementById("imgBack").addEventListener("click", () => { gotTo('../pages/scan.html') }, false);
     }
 
     console.log(window.location.href)

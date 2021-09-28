@@ -12,6 +12,8 @@ if (document.getElementById("goToStats"))
 if (document.getElementById("goToHome"))
     document.getElementById("goToHome").addEventListener("click", () => { gotTo('../index.html') }, false);
 
+if (document.getElementById("goBackToScan"))
+    document.getElementById("goBackToScan").addEventListener("click", () => { gotTo('./scan.html') }, false);
 
 eel.expose(prompt_alerts);
 

@@ -41,3 +41,10 @@ div.numClient {
 div.reason {
     color: red;
 }
+
+img.retour {
+    position: absolute;
+    top: 1.5em;
+    left: 1.5em;
+    height: 1.5em;
+}
