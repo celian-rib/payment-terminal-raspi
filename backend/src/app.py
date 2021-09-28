@@ -7,12 +7,14 @@ from backup import check_if_backup_required
 from waitress import serve
 from dotenv import load_dotenv
 
+load_dotenv()
+
 if __name__ == '__main__':
-    load_dotenv()
+    init_db()
+    
     app = Flask(__name__)
 
     api.init_app(app)
-    init_db()
 
     if os.environ.get('PROD') == None :
         # Development schema

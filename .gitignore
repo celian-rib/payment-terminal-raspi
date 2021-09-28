@@ -4,5 +4,5 @@ hardware/src/quick2wire
 hardware/src/py532lib
 hardware/src/.backup_timestamp
 
-backend/db/*.sqlite3
+*.sqlite3
 .env

@@ -74,7 +74,9 @@ if os.uname().nodename == 'raspberrypi':
             '--kiosk'
         ]
     )
-else:
+else: 
+    # Development servers does not need to start a chromium instance
+    # go to https://localhost:8000/
     eel.start(
         'index.html',
         mode=None,
