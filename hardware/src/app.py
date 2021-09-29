@@ -1,67 +1,21 @@
-#!/usr/bin/env python3
-
 import eel
 import os
-import server
+import sys
 
-print("Starting web server...")
+from utils import log
 
-eel.init('web')
+def start_headless():
+    # Development servers does not need to start a chromium instance
+    # go to https://localhost:8000/
+    log("[ Headless mode ]")
+    eel.start(
+        'index.html',
+        mode=None,
+        host='0.0.0.0'
+    )
 
-@eel.expose
-def hello_world():
-    print("hellow world from python")
-    eel.prompt_alerts('Hello world call from python -> exec on js')
-
-# condition de sortie de await_card_scan
-urlOne = None
-
-@eel.expose
-def await_card_scan(price):
-    print("New transaction started : ", price)
-
-    # on définis les valeurs de l'url à comparer
-    urlOne = eel.get_current_url()();
-    nameTwo = name = eel.get_current_url()();
-    i = 0
-    # si l'arret est volontaire ou non
-    cancel = 0
-    # tant que l'url reste inchangée
-    while(True):
-        if urlOne != nameTwo:
-            cancel = 2
-            break;
-
-        nameTwo = name = eel.get_current_url()();
-        print("ok", nameTwo, "; name :", urlOne);
-        i=i+1
-        # au bout de 5 tours arret volontaire
-        if i > 5:
-            # arret volontaire, true
-            cancel = 0
-            break
-        # une fois par seconde
-        eel.sleep(1);
-    # transaction terminée
-    print("done");
-    if cancel == 1:
-        eel.scan_complete(450, 465)
-    elif cancel == 0:
-        eel.scan_cancel(450, 465, "problème sur la lecture de carte")
-    else:
-        print("User left transaction")
-
-@eel.expose
-def get_stats():
-    print("Retreiving stats")
-    stats = server.get_stats().json()
-    print(stats)
-    return stats
-
-print("Web server started on port 8000")
-
-
-if os.uname().nodename == 'raspberrypi':
+def start_with_client():
+    log("[ Client mode ]")
     eel.start(
         'index.html',
         mode='chrome',
@@ -74,13 +28,18 @@ if os.uname().nodename == 'raspberrypi':
             '--kiosk'
         ]
     )
-else: 
-    # Development servers does not need to start a chromium instance
-    # go to https://localhost:8000/
-    eel.start(
-        'index.html',
-        mode=None,
-        host='0.0.0.0'
-    )
 
-print("Web server terminated")
+if __name__ == '__main__':
+    log("Starting web server...")
+    eel.init('web')
+    import web # Load eel exposed functions
+    log("Web server started on http://localhost:8000/")
+
+    if sys.platform.startswith('win'):
+        start_headless()
+    elif os.uname().nodename == 'raspberrypi':
+        start_with_client()
+    else:
+        start_headless()
+        
+    log("Web server terminated")
