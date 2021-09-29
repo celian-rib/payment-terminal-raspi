@@ -31,6 +31,9 @@ def await_card_scan(price):
     
     log("Card uid :", card_uid)
     
+
+    transaction_data = server.send_scan(card_uid, price).json()
+    print(transaction_data)
     eel.scan_complete(price, card_uid) # A ENLEVR
 
     # # on définis les valeurs de l'url à comparer
