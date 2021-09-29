@@ -61,7 +61,8 @@ def get_stats():
 print("Web server started on port 8000")
 
 
-if os.uname().nodename == 'raspberrypi':
+#if os.uname().nodename == 'raspberrypi':
+if False:
     eel.start(
         'index.html',
         mode='chrome',

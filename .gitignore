@@ -6,3 +6,4 @@ hardware/src/.backup_timestamp
 
 *.sqlite3
 .env
+.vscode
