@@ -33,7 +33,8 @@ def await_card_scan(price):
     
 
     transaction_data = server.send_scan(card_uid, price).json()
-    eel.scan_complete(transaction_data["cardCurrency"], transaction_data["userId"]) # A ENLEVR
+    print(transaction_data)
+    eel.scan_complete(10, transaction_data["userId"]) # A ENLEVR
 
     # # on définis les valeurs de l'url à comparer
     # current_loaded_url = eel.get_current_url()();
