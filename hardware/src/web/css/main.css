@@ -8,6 +8,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     overflow-y: hidden;
     overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .btn {
@@ -31,4 +35,11 @@ body {
     background-color: #7f4fbc;
     -webkit-box-shadow: 0px 0px 40px 0px #7f4fbc;
     box-shadow: 0px 0px 40px 0px #7f4fbc;
+}
+
+.backArrow {
+    position: absolute;
+    top: 1.5em;
+    left: 1.5em;
+    height: 1.5em;
 }
