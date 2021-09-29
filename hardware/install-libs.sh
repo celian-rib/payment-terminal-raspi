@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ ! -d ./src/py532lib ] && [ ! -d ./src/quick2wire ]; then
 	git clone https://github.com/HubCityLabs/py532lib.git
 	mv py532lib/py532lib ./src
