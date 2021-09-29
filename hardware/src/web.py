@@ -13,6 +13,12 @@ pn532.SAMconfigure()
 # condition de sortie de await_card_scan
 current_loaded_url = None
 
+def get_uid_string(byte_list) -> str:
+    uid = "" 
+    for i in byte_list:
+        uid += str(i)
+    return uid
+
 # def async_card_scan():
 #     card_data = pn532.read_mifare().get_data()
 #     print(card_data)
@@ -21,10 +27,11 @@ current_loaded_url = None
 def await_card_scan(price):
     log("New transaction started:", price)
     card_data = pn532.read_mifare().get_data()
-    print(card_data.decode())
+    card_uid = get_uid_string(list(card_data))
     
-    eel.prompt_alerts(str(card_data.decode()))
-
+    log("Card uid :", card_uid)
+    
+    eel.scan_complete(price, card_uid) # A ENLEVR
 
     # # on définis les valeurs de l'url à comparer
     # current_loaded_url = eel.get_current_url()();
