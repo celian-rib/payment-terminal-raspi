@@ -5,15 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/transac.css">
+
     <script type="text/javascript" src="/eel.js">
-    </script>
-    <script type="text/javascript" src="../js/unvalidTransac.js">
     </script>
 </head>
 
 <body>
-    <img src="../img/previous.svg" class="retour" id="goBackToScan">
+    <div id="goToScan" class="divBackArrow">
+        <img src="../img/previous.svg" class="imgBackArrow">
+    </div>
     <img src="../img/x-mark.svg" class="imgValid">
 
     <div class="valid">
@@ -23,15 +25,18 @@
         <p id="reasonBug">voici la raison du bug batard</p>
     </div>
 
-    <div class="money">
+    <div>
         <p>Compte courant:</p>
         <p id="accountMoney">03.10€</p>
     </div>
-    <div class="numClient">
+    <div>
         <p>Numéro client:</p>
         <p id="clientNum">0034</p>
     </div>
 </body>
-<script src="../js/main.js"></script>
+<script src="../js/main.js">
+</script>
+<script type="text/javascript" src="../js/unvalidTransac.js">
+</script>
 
 </html>

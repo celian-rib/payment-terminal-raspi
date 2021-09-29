@@ -1,22 +1,10 @@
-body {
-    background-color: #101a24;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    overflow-y: hidden;
-    overflow-x: hidden;
-}
-
-img.imgValid {
-    margin-top: 7%;
-    margin-left: 45%;
-    width: 10%;
+.imgValid {
+    width: 40px;
 }
 
 div {
+    width: 80%;
+    font-size: 120%;
     color: white;
     font-weight: bolder;
     display: flex;
@@ -25,26 +13,12 @@ div {
 }
 
 div.valid {
-    font-size: 150%;
     height: 15%;
+    font-size: 150%;
     color: #4f7abc;
 }
 
-div.money {
-    font-size: 120%;
-}
-
-div.numClient {
-    font-size: 120%;
-}
-
 div.reason {
+    height: 10%;
     color: red;
-}
-
-img.retour {
-    position: absolute;
-    top: 1.5em;
-    left: 1.5em;
-    height: 1.5em;
 }

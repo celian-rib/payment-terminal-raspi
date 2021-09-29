@@ -4,11 +4,12 @@ let buttonPlusOne;
 let buttonPlusCent;
 
 let priceText;
-
 let price = 0;
 
+/**
+ * Fonction appellée lorsque la page est entièrement chargée
+ */
 window.onload = function() {
-
     buttonMinusCent = document.getElementById("but1");
     buttonMinusOne = document.getElementById("but2");
     buttonPlusOne = document.getElementById("but3");
@@ -42,12 +43,10 @@ window.onload = function() {
         priceText.innerHTML = getPriceString(price);
     }, false);
 
-    if (document.getElementById("ajout"))
-        document.getElementById("ajout").addEventListener("click", () => { goToWait(-price) }, false);
-    if (document.getElementById("debit"))
-        document.getElementById("debit").addEventListener("click", () => { goToWait(price) }, false);
+    document
+        .getElementById("ajout")
+        .addEventListener("click", () => goToWithParam("goToNfc", "?" + price), false);
+    document
+        .getElementById("debit")
+        .addEventListener("click", () => goToWithParam("goToNfc", "?" + -price), false);
 };
-
-function goToWait(price) {
-    goToWithParam("goToNfc", "?" + price)
-}

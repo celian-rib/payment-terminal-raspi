@@ -1,7 +1,24 @@
+const router = {
+    "goToScan": "/pages/scan.html",
+    "goToStats": "/pages/stats.html",
+    "goToHome": "/index.html",
+    "goToNfc": "/pages/nfc.html",
+    "goToUnvalidTransac": "/pages/unvalidTransac.html",
+    "goToValidTransac": "/pages/validTransac.html"
+};
+
+/**
+ * Change la page courante sur une url donnée
+ * @param url url a charger
+ */
 function goTo(url) {
     window.location.replace(url);
 }
 
+/**
+ * Permet de charger une page à partir de son identifiant et avec des paramètres dans l'url
+ * @param pageId identifiant de la page a charger (Un des noms présent dans router)
+ */
 function goToWithParam(pageID, params) {
     const element = router[pageID];
     if (element == null)
@@ -9,42 +26,46 @@ function goToWithParam(pageID, params) {
     goTo(element + params);
 }
 
-const router = {
-    "goToScan": "/pages/scan.html",
-    "goToStats": "/pages/stats.html",
-    "goToHome": "/index.html",
-    "goToNfc": "/pages/nfc.html",
-    "goToUnvalidTransac": "/pages/unvalidTransac",
-    "goToValidTransac": "/pages/validTransac"
-};
+/**
+ * Permet d'attendre une durée précise
+ */
+const delay = async(duration) => new Promise((resolve) => setTimeout(() => resolve(), duration));
 
 for (let route of Object.keys(router)) {
-
     const element = document.getElementById(route);
-
-    if (element == null) {
+    if (element == null)
         continue;
-    }
-
     element.addEventListener("click", () => goTo(router[route]));
 }
 
 
-    
-
 eel.expose(prompt_alerts);
-
+/**
+ * Fonction permettant d'afficher une alerte à l'écran
+ * 
+ * @param description message à afficher dans l'alerte
+ */
 function prompt_alerts(description) {
     alert(description);
 }
 
-eel.expose(get_current_url)
 
+eel.expose(get_current_url)
+    /**
+     * Fonction permettant de récupérer l'url de la page courante
+     * 
+     * @return l'url en question
+     */
 function get_current_url() {
     console.log(window.location.href);
     return window.location.href;
 }
 
+/**
+ * Permet de récupérer les données stockées dans ue url donnée
+ * @param url a parser
+ * @return objet contenant les parmètre d'url
+ */
 function parseURLParams(url) {
     var queryStart = url.indexOf("?") + 1,
         queryEnd = url.indexOf("#") + 1 || url.length + 1,
@@ -66,6 +87,13 @@ function parseURLParams(url) {
     return parms;
 }
 
+/**
+ * Fonction permettant de formater une donnée de prix
+ * pour l'afficher proprement à l'écran
+ * 
+ * @param price prix à mettre au bon format
+ * @return un string formaté pour le prix
+ */
 function getPriceString(price) {
     if ((price / 100) % 1 != 0) {
         //decimal number

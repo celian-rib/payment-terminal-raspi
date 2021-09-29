@@ -5,29 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/nfc.css">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/nfc.css">
 
-
-    <script type="text/javascript" src="/eel.js"></script>
-    <script src="../js/main.js"></script>
-    <script type="text/javascript" src="../js/nfc.js"></script>
+    <script type="text/javascript" src="/eel.js">
+    </script>
 </head>
 
 <body>
-    <div id="imgBack">
-        <img src="../img/previous.svg">
+    <div class="divBackArrow" id="goToScan">
+        <img src="../img/previous.svg" class="imgBackArrow">
     </div>
-    <div class="price">
-        <a id="priceText">-0.00€</a>
+    <a id="priceText" class="price">-0.00€</a>
+    <div class="logoContainer">
+        <img src="../img/nfc.svg">
     </div>
-    <div id="logoContainer">
-        <img src="../img/nfc.svg" id="nfcImg">
-    </div>
-    <div>
-        <a id="textWriter"></a>
-    </div>
+    <a id="textWriter"></a>
 </body>
 
+<script src="../js/main.js">
+</script>
+<script type="text/javascript" src="../js/nfc.js">
+</script>
 
 </html>

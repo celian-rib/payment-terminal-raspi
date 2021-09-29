@@ -5,30 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/transac.css">
+
     <script type="text/javascript" src="/eel.js">
-    </script>
-    <script type="text/javascript" src="../js/validTransac.js">
     </script>
 </head>
 
 <body>
-    <img src="../img/previous.svg" class="retour" id="goBackToScan">
-    <img src="../img/checked.svg" class="imgValid">
+    <div id="goToScan" class="divBackArrow">
+        <img src="../img/previous.svg" class="imgBackArrow">
+    </div>
 
-    <div class="valid">
+    <img src=" ../img/checked.svg " class="imgValid ">
+
+    <div class="valid ">
         <p>Transaction validée</p>
     </div>
+    <div>
+        <p>Argent restant :</p>
+        <p id="accountMoney ">Loading...</p>
+    </div>
+    <div>
+        <p>Numéro client :</p>
+        <p id="clientNum ">Loading...</p>
+    </div>
 
-    <div class="money">
-        <p>Argent restant:</p>
-        <p id="accountMoney">Loading...</p>
-    </div>
-    <div class="numClient">
-        <p>Numéro client:</p>
-        <p id="clientNum">Loading...</p>
-    </div>
 </body>
-<script src="../js/main.js"></script>
+<script src="../js/main.js ">
+</script>
+<script type="text/javascript " src="../js/validTransac.js ">
+</script>
 
 </html>

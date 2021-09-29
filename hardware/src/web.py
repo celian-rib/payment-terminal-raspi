@@ -9,7 +9,7 @@ current_loaded_url = None
 @eel.expose
 def await_card_scan(price):
     log("New transaction started:", price)
-
+    
     # on définis les valeurs de l'url à comparer
     current_loaded_url = eel.get_current_url()();
     buffer_url = eel.get_current_url()();
@@ -44,6 +44,10 @@ def await_card_scan(price):
 @eel.expose
 def get_stats():
     log("Retreiving stats")
-    stats = server.get_stats().json()
-    log(stats)
-    return stats
+    try :
+        stats = server.get_stats().json()
+        log(stats)
+        return stats
+    except :
+        log("Error while retreiving stats...")
+        return None
