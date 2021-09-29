@@ -21,7 +21,7 @@ window.onload = function() {
         if (price < 0) {
             price = 0;
         }
-        showPrice(price);
+        priceText.innerHTML = getPriceString(price);
     }, false);
 
     buttonMinusOne.addEventListener("click", () => {
@@ -29,17 +29,17 @@ window.onload = function() {
         if (price < 0) {
             price = 0;
         }
-        showPrice(price);
+        priceText.innerHTML = getPriceString(price);
     }, false);
 
     buttonPlusOne.addEventListener("click", () => {
         price += 100;
-        showPrice(price);
+        priceText.innerHTML = getPriceString(price);
     }, false);
 
     buttonPlusCent.addEventListener("click", () => {
         price += 10;
-        showPrice(price);
+        priceText.innerHTML = getPriceString(price);
     }, false);
 
     if (document.getElementById("ajout"))
@@ -49,15 +49,5 @@ window.onload = function() {
 };
 
 function goToWait(price) {
-    window.location.replace("../pages/nfc.html?" + price);
-}
-
-const showPrice = (price) => {
-    if ((price / 100) % 1 != 0) {
-        //decimal number
-        priceText.innerHTML = (price / 100) + "0€"
-    } else {
-        // non decimal number
-        priceText.innerHTML = (price / 100) + ".00€"
-    }
+    goToWithParam("goToNfc", "?" + price)
 }

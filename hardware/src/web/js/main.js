@@ -1,19 +1,34 @@
-const gotTo = (url) => window.location.replace(url);
+function goTo(url) {
+    window.location.replace(url);
+}
 
-if (document.getElementById("helloWorldButton"))
-    document.getElementById("helloWorldButton").addEventListener("click", () => { eel.hello_world() }, false);
+function goToWithParam(pageID, params) {
+    const element = router[pageID];
+    if (element == null)
+        throw "Page doest not exists";
+    goTo(element + params);
+}
 
-if (document.getElementById("goToScan"))
-    document.getElementById("goToScan").addEventListener("click", () => { gotTo('./pages/scan.html') }, false);
+const router = {
+    "goToScan": "/pages/scan.html",
+    "goToStats": "/pages/stats.html",
+    "goToHome": "/index.html",
+    "goToNfc": "/pages/nfc.html",
+    "goToUnvalidTransac": "/pages/unvalidTransac",
+    "goToValidTransac": "/pages/validTransac"
+};
 
-if (document.getElementById("goToStats"))
-    document.getElementById("goToStats").addEventListener("click", () => { gotTo('./pages/stats.html') }, false);
+for (let route of Object.keys(router)) {
 
-if (document.getElementById("goToHome"))
-    document.getElementById("goToHome").addEventListener("click", () => { gotTo('../index.html') }, false);
+    const element = document.getElementById(route);
 
-if (document.getElementById("goBackToScan"))
-    document.getElementById("goBackToScan").addEventListener("click", () => { gotTo('./scan.html') }, false);
+    if (element == null) {
+        continue;
+    }
+
+    element.addEventListener("click", () => goTo(router[route]));
+}
+
 
     
 
@@ -28,4 +43,35 @@ eel.expose(get_current_url)
 function get_current_url() {
     console.log(window.location.href);
     return window.location.href;
+}
+
+function parseURLParams(url) {
+    var queryStart = url.indexOf("?") + 1,
+        queryEnd = url.indexOf("#") + 1 || url.length + 1,
+        query = url.slice(queryStart, queryEnd - 1),
+        pairs = query.replace(/\+/g, " ").split("&"),
+        parms = {},
+        i, n, v, nv;
+
+    if (query === url || query === "") return;
+
+    for (i = 0; i < pairs.length; i++) {
+        nv = pairs[i].split("=", 2);
+        n = decodeURIComponent(nv[0]);
+        v = decodeURIComponent(nv[1]);
+
+        if (!parms.hasOwnProperty(n)) parms[n] = [];
+        parms[n].push(nv.length === 2 ? v : null);
+    }
+    return parms;
+}
+
+function getPriceString(price) {
+    if ((price / 100) % 1 != 0) {
+        //decimal number
+        return (price / 100) + "0€"
+    } else {
+        // non decimal number
+        return (price / 100) + ".00€"
+    }
 }
