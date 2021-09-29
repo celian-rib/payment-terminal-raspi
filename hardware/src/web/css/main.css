@@ -10,47 +10,25 @@ body {
     overflow-x: hidden;
 }
 
-div.mainContainer {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    display: grid;
-    grid-template-areas: "areaOne areaTwo areThree" "areaFour areaFive areaSix" "areaSeven areaHeight areaNine";
-    grid-template-columns: 0.5fr 1fr 0.5fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    align-items: center;
-}
-
-a {
+.btn {
+    padding: 30px;
+    border-radius: 20px;
     color: white;
-    width: 80%;
-    padding: 10%;
-    text-align: center;
-    font-size: 110%;
-    font-weight: bold;
-    border-radius: 15px;
+    width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
 }
 
-img.invert {
-    grid-area: areaTwo;
-    filter: invert(100%);
-    width: 107px;
-    margin-left: 66.5px;
-}
-
-a#goToStats {
+.blue {
     background-color: #4f7abc;
-    grid-area: areaHeight;
     -webkit-box-shadow: 0px 0px 40px 0px #4f7abc;
     box-shadow: 0px 0px 40px 0px #4f7abc;
 }
 
-a#goToScan,
-a#goToHome {
+.purple {
     background-color: #7f4fbc;
-    grid-area: areaFive;
     -webkit-box-shadow: 0px 0px 40px 0px #7f4fbc;
     box-shadow: 0px 0px 40px 0px #7f4fbc;
 }
