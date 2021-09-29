@@ -12,8 +12,8 @@ HEADERS = {"x-access-tokens": os.environ.get("AUTH_TOKEN")}
 
 def send_scan(card_uid, transaction_value):
     payload = {
-        "cardUID": card_uid,
-        "transactionValue": transaction_value
+        'cardUID': card_uid,
+        'transactionValue': transaction_value
     }
     return requests.post(url=BACKEND_URL + "/api/scan", json=payload)
 

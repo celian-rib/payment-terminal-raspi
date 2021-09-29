@@ -1,8 +1,5 @@
 import eel
-import os
-import sys
-
-from utils import log
+from utils import log, is_raspberry
 
 def start_headless():
     # Development servers does not need to start a chromium instance
@@ -35,9 +32,7 @@ if __name__ == '__main__':
     import web # Load eel exposed functions
     log("Web server started on http://localhost:8000/")
 
-    if sys.platform.startswith('win'):
-        start_headless()
-    elif os.uname().nodename == 'raspberrypi':
+    if is_raspberry():
         start_with_client()
     else:
         start_headless()
