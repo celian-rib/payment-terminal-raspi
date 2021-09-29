@@ -51,11 +51,12 @@ function prompt_alerts(description) {
 
 
 eel.expose(get_current_url)
-    /**
-     * Fonction permettant de récupérer l'url de la page courante
-     * 
-     * @return l'url en question
-     */
+
+/**
+ * Fonction permettant de récupérer l'url de la page courante
+ * 
+ * @return l'url en question
+ */
 function get_current_url() {
     console.log(window.location.href);
     return window.location.href;

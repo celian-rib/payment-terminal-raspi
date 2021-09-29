@@ -60,6 +60,7 @@ network={
 
 ## I2C setup
 
+sudo apt install libnfc5 libnfc-bin libnfc-examples
 
 ## Wiring
 
