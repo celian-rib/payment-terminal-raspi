@@ -15,7 +15,7 @@ def send_scan(card_uid, transaction_value):
         "cardUID": card_uid,
         "transactionValue": transaction_value
     }
-    return requests.post(url=BACKEND_URL + "/api/scan", headers=HEADERS, json=payload)
+    return requests.post(url=BACKEND_URL + "/api/scan", json=payload)
 
 def get_stats():
     return requests.get(url=BACKEND_URL + "/api/stats")
