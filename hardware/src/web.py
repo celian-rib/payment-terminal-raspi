@@ -1,14 +1,17 @@
 import eel
 import server
 
-from py532lib.i2c import *
-from py532lib.frame import *
-from py532lib.constants import *
+from utils import log, is_raspberry
 
-from utils import log
+pn532 = None
 
-pn532 = Pn532_i2c()
-pn532.SAMconfigure()
+if is_raspberry():
+    from py532lib.i2c import *
+    from py532lib.frame import *
+    from py532lib.constants import *
+
+    pn532 = Pn532_i2c()
+    pn532.SAMconfigure()
 
 # condition de sortie de await_card_scan
 current_loaded_url = None
@@ -26,12 +29,37 @@ def get_uid_string(byte_list) -> str:
 @eel.expose
 def await_card_scan(price):
     log("New transaction started:", price)
-    card_data = pn532.read_mifare().get_data()
-    card_uid = get_uid_string(list(card_data))
+
+    card_data = None
+    if not pn532 :
+        # artificial scan
+        log("[ non-pi development server detected ]")
+        log("[ SIMULATING SCAN IN 2SEC]")
+        eel.sleep(2)
+        card_data = [10, 20, 30, 40, 50, 60]
+    else :
+        card_data = pn532.read_mifare().get_data()
     
+    card_uid = get_uid_string(list(card_data))
     log("Card uid :", card_uid)
     
-    eel.scan_complete(price, card_uid) # A ENLEVR
+    transaction_data = server.send_scan(card_uid, float(price)).json()
+    print(transaction_data)
+    transaction_status = transaction_data["transactionStatus"]
+    card_currency = transaction_data["cardCurrency"]
+    user_id = transaction_data["userId"]
+
+    if transaction_status == "ACCEPTED":
+        eel.scan_complete(card_currency, user_id)
+    else:
+        eel.scan_cancel(card_currency, user_id, transaction_status)
+
+
+
+
+
+
+
 
     # # on définis les valeurs de l'url à comparer
     # current_loaded_url = eel.get_current_url()();
