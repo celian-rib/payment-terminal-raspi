@@ -18,7 +18,7 @@ SCAN_PARAMS = ns.model('Scan post parameter', {
 class Scans(Resource):
     
     @ns.expect(SCAN_PARAMS, validate=True)
-    # @authentification_required
+    @authentification_required
     def post(self, **kwargs):
 
         card_uid = str(ns.payload["cardUID"])

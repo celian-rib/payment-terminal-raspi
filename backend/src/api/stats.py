@@ -16,7 +16,7 @@ ns = Namespace('stats', description='User and currency stats')
 
 @ns.route('/stats')
 class Stats(Resource):
-    # @authentification_required
+    @authentification_required
     def get(self):
         total_user = 0
         total_stored_currency = 0

@@ -1,6 +1,6 @@
-let price = "loading ...";
+let price = 'loading ...';
 
-const base = "En attente de la carte";
+const base = 'En attente de la carte';
 const animation_tick = 400;
 
 /**
@@ -8,22 +8,22 @@ const animation_tick = 400;
  * page de scan nfc durant l'attente du scan
  */
 function textAnimation() {
-    const text = document.getElementById("textWriter");
-    const anim = async() => {
-        text.innerHTML = base
-        await delay(animation_tick)
-        text.innerHTML = base + "."
-        await delay(animation_tick)
-        text.innerHTML = base + ".."
-        await delay(animation_tick)
-        text.innerHTML = base + "..."
-        await delay(animation_tick)
-        anim()
-    }
-    anim()
+	const text = document.getElementById('textWriter');
+	const anim = async() => {
+		text.innerHTML = base;
+		await delay(animation_tick);
+		text.innerHTML = base + '.';
+		await delay(animation_tick);
+		text.innerHTML = base + '..';
+		await delay(animation_tick);
+		text.innerHTML = base + '...';
+		await delay(animation_tick);
+		anim();
+	};
+	anim();
 }
 
-eel.expose(scan_complete)
+eel.expose(scan_complete);
 
 
 /**
@@ -35,10 +35,10 @@ eel.expose(scan_complete)
  * 
  */
 function scan_complete(money, userID) {
-    goToWithParam("goToValidTransac", "?money=" + money + "&userID=" + userID);
+	goToWithParam('goToValidTransac', '?money=' + money + '&userID=' + userID);
 }
 
-eel.expose(scan_cancel)
+eel.expose(scan_cancel);
 
 /**
  * Fonction appellée par python permettant de transférer vers la
@@ -50,20 +50,20 @@ eel.expose(scan_cancel)
  * 
  */
 function scan_cancel(money, userID, reason) {
-    goToWithParam("goToUnvalidTransac", "?money=" + money + "&userID=" + userID + "&reason=" + reason);
+	goToWithParam('goToUnvalidTransac', '?money=' + money + '&userID=' + userID + '&reason=' + reason);
 }
 
 /**
  * Fonction appelée lorsque la page est entièrement chargée
  */
 window.onload = function() {
-    // Retreive price from url
-    const urlData = parseURLParams(window.location.href);
-    price = Object.keys(urlData)[0];
-    priceText.innerHTML = (price > 0 ? "+" : "") + getPriceString(price);
+	// Retreive price from url
+	const urlData = parseURLParams(window.location.href);
+	price = Object.keys(urlData)[0];
+	priceText.innerHTML = (price > 0 ? '+' : '') + getPriceString(price);
 
-    // Start transaction on python side
-    eel.await_card_scan(price);
+	// Start transaction on python side
+	eel.await_card_scan(price);
 
-    textAnimation()
-}
+	textAnimation();
+};
