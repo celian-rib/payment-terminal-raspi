@@ -1,6 +1,8 @@
 import requests
 import os
 import smtplib
+import socket
+
 
 from datetime import datetime
 from pathlib import Path
@@ -10,9 +12,7 @@ from email.mime.base import MIMEBase
 from email.encoders import encode_base64
 
 BACKUP_MAIL_ADDRESS = "celian.riboulet@gmail.com"
-BACKUP_INTERVAL_HOURS = 1;
 
-FILE_NAME = str(Path(__file__).parent) + "/.backup_timestamp"
 DB_PATH = str(Path(__file__).parent.parent) + "/db/dev.sqlite3"
 
 def internet_on():
@@ -42,28 +42,23 @@ def send_backup():
 
     session = smtplib.SMTP('smtp.gmail.com', 587)
     session.starttls()
-    session.login(BACKUP_MAIL_ADDRESS, "kifmmylkvwrendzq")
+    session.login(BACKUP_MAIL_ADDRESS, os.environ.get('SMTP_PASSWORD'))
 
     session.sendmail(BACKUP_MAIL_ADDRESS, BACKUP_MAIL_ADDRESS, msg.as_string())
-
-    with open(FILE_NAME, "w+") as f:
-        f.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
 
     print("Backup sent to ", BACKUP_MAIL_ADDRESS)
 
 def check_if_backup_required():
     if not internet_on():
         print("Backup check canceled : NO INTERNET")
-        return;
-    try:
-        with open(FILE_NAME, "r+") as f:
-            time_str = f.readline()
-            last_backup = datetime.strptime(time_str, "%m/%d/%Y, %H:%M:%S")
-            delta = datetime.now() - last_backup
-            print("Last database backup : ", last_backup)
-            print("Delay since last backup : ", delta)
+        return
 
-            if delta.total_seconds() >= BACKUP_INTERVAL_HOURS * 60 * 60:
-                send_backup() 
-    except:
-        print("No backup timestamp file found, a new one will be created")
+    local_ip = str(socket.gethostbyname(socket.gethostname()))
+    if local_ip == "192.168.1.29" or local_ip == "192.168.1.37":
+        print("Backup canceled : Celian's home detected")
+        return
+    
+    try:
+        send_backup()
+    except Exception as e:
+        print("BACKUP ERROR", e)
