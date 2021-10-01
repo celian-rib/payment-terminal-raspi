@@ -43,8 +43,15 @@ def await_card_scan(price):
     card_uid = get_uid_string(list(card_data))
     log("Card uid :", card_uid)
     
-    transaction_data = server.send_scan(card_uid, float(price)).json()
-    print(transaction_data)
+    transaction_data = None
+    try:
+        transaction_data = server.send_scan(card_uid, float(price)).json()
+        log("Transaction result : ", transaction_data)
+    except Exception as e:
+        log("[ Request Error !! ]", e)
+        eel.scan_cancel(0, 0, "La transactiona pa pu être envoyée au serveur...")
+        return
+
     transaction_status = transaction_data["transactionStatus"]
     card_currency = transaction_data["cardCurrency"]
     user_id = transaction_data["userId"]

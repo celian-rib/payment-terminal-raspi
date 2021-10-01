@@ -22,3 +22,8 @@ div.reason {
     height: 10%;
     color: red;
 }
+
+.divBackArrow p {
+    margin-left: 60px;
+    opacity: 0.4;
+}
