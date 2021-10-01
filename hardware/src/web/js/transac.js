@@ -1,12 +1,3 @@
-async function timerAnimation() {
-	const element = document.getElementById('timer');
-	for (let i = 10; i > 0; i--) {
-		element.innerHTML = i;
-		await delay(1000);
-	}
-	goTo(router['goToScan'])
-}
-
 window.onload = function () {
 	const urlData = parseURLParams(window.location.href);
 	const price = urlData['money'][0];
@@ -21,6 +12,4 @@ window.onload = function () {
 
 	if (document.getElementById('reasonBug'))
 		document.getElementById('reasonBug').innerHTML = reason;
-
-	timerAnimation();
 };

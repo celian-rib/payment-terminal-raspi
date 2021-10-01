@@ -2,6 +2,7 @@ import eel
 import server
 
 from utils import log, is_raspberry
+from requests.exceptions import ConnectionError
 
 pn532 = None
 
@@ -48,8 +49,12 @@ def await_card_scan(price):
         transaction_data = server.send_scan(card_uid, float(price)).json()
         log("Transaction result : ", transaction_data)
     except Exception as e:
-        log("[ Request Error !! ]", e)
-        eel.scan_cancel(0, 0, "La transactiona pa pu être envoyée au serveur...")
+        if isinstance(e, ConnectionError):
+            log("[ Request Error !! ]")
+            eel.scan_cancel(0, 0, "La transaction pa pu être envoyée au serveur...")
+        else:
+            log("[ Request Error !! ]", e)
+            eel.scan_cancel(0, 0, "Erreur inconnue durant l'envois de la transaction...")
         return
 
     transaction_status = transaction_data["transactionStatus"]
@@ -60,46 +65,6 @@ def await_card_scan(price):
         eel.scan_complete(card_currency, user_id)
     else:
         eel.scan_cancel(card_currency, user_id, transaction_status)
-
-
-
-
-
-
-
-
-    # # on définis les valeurs de l'url à comparer
-    # current_loaded_url = eel.get_current_url()();
-    # buffer_url = eel.get_current_url()();
-    # i = 0
-    # # si l'arret est volontaire ou non
-    # cancel = 0
-    # # tant que l'url reste inchangée
-    # while(True):
-    #     if current_loaded_url != buffer_url:
-    #         cancel = 2
-    #         break;
-
-    #     card_data = pn532.read_mifare().get_data()
-
-    #     buffer_url = eel.get_current_url()();
-    #     log("[ OK ] Still waiting...");
-    #     i=i+1
-    #     # au bout de 5 tours arret volontaire
-    #     if i > 5:
-    #         # arret volontaire, true
-    #         cancel = 1
-    #         break
-    #     eel.sleep(0.5);
-
-    # if cancel == 1:
-    #     log("[ SUCCESS ] Transaction done:", price);
-    #     eel.scan_complete(450, 465)
-    # elif cancel == 0:
-    #     log("[ ERROR ] reason to do");
-    #     eel.scan_cancel(450, 465, "problème sur la lecture de carte")
-    # else:
-    #     log("[ CLOSED ] The transaction has been canceled");
 
 @eel.expose
 def get_stats():
