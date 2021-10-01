@@ -63,7 +63,7 @@ window.onload = function() {
 	priceText.innerHTML = (price > 0 ? '+' : '') + getPriceString(price);
 
 	// Start transaction on python side
-	eel.await_card_scan(price);
+	eel.start_transaction(price);
 
 	textAnimation();
 };
