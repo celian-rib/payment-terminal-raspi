@@ -47,7 +47,7 @@ def await_card_scan(price):
         if isinstance(e, ConnectionError):
             log("[ Request Error !! ]")
             eel.scan_cancel(
-                0, 0, "La transaction pa pu être envoyée au serveur...")
+                0, 0, "La transaction n'a pas pu être envoyée au serveur...")
         else:
             log("[ Request Error !! ]", e)
             eel.scan_cancel(

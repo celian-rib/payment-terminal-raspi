@@ -3,7 +3,6 @@ import os
 import smtplib
 import socket
 
-
 from datetime import datetime
 from pathlib import Path
 
@@ -13,7 +12,7 @@ from email.encoders import encode_base64
 
 BACKUP_MAIL_ADDRESS = "celian.riboulet@gmail.com"
 
-DB_PATH = str(Path(__file__).parent.parent) + "/db/dev.sqlite3"
+DB_PATH = str(Path(__file__).parent.parent) + "/db/prod.sqlite3"
 
 def internet_on():
     try:
