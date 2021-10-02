@@ -89,4 +89,4 @@ Os : Raspberry PI OS Lite
 
 # 3) Wiring
 
-TODO
+<img width="800px" src="https://github.com/celian-rib/asso-card/blob/main/hardware/img/i2c_wiring.png?raw=true" />
