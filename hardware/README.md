@@ -17,6 +17,7 @@ Os : Raspberry PI OS Lite
     ```
 ***
 - ### Start the Pi and connect over ssh
+    - ```ssh pi@192.168.x.xx``` (Default password is ```raspberry```)
 ***
 - ### Update packages 
     - ```sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoclean && sudo apt-get autoremove```

@@ -63,6 +63,21 @@ def await_card_scan(price):
     else:
         eel.scan_cancel(card_currency, user_id, transaction_status)
 
+def await_exit_transaction(async_scan):
+    log("Start checking page")
+    while (True):
+        loaded_url = None
+        try:
+            loaded_url = eel.get_current_url()()
+        except:
+            loaded_url = "nfc"
+        if "nfc" not in str(loaded_url) :
+            log("[ CLOSED ] The transaction is closed")
+            gevent.kill(async_scan)
+            break
+        eel.sleep(1)
+        log(loaded_url)
+
 
 @eel.expose
 def start_transaction(price):
@@ -70,17 +85,7 @@ def start_transaction(price):
 
     # start scan in background
     async_scan = eel.spawn(await_card_scan, price)
-
-    # Check for transaction end (If page has been changed by the user or by an ending transaction)
-    current_loaded_url = eel.get_current_url()()
-    buffer_url = current_loaded_url
-    while (True):
-        if current_loaded_url != buffer_url:
-            log("[ CLOSED ] The transaction is closed")
-            gevent.kill(async_scan)
-            break
-        current_loaded_url = eel.get_current_url()()
-        eel.sleep(0.5)
+    eel.spawn(await_exit_transaction, async_scan)
 
 
 @eel.expose

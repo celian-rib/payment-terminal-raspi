@@ -58,7 +58,6 @@ eel.expose(get_current_url);
  * @return l'url en question
  */
 function get_current_url() {
-	console.log(window.location.href);
 	return window.location.href;
 }
 
