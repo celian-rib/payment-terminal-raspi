@@ -63,8 +63,12 @@ def await_card_scan(price):
     else:
         eel.scan_cancel(card_currency, user_id, transaction_status)
 
-def await_exit_transaction(async_scan):
-    log("Start checking page")
+@eel.expose
+def start_transaction(price):
+    log("New transaction started:", price)
+
+    # start scan in background
+    async_scan = eel.spawn(await_card_scan, price)
     while (True):
         loaded_url = None
         try:
@@ -77,15 +81,6 @@ def await_exit_transaction(async_scan):
             break
         eel.sleep(1)
         log(loaded_url)
-
-
-@eel.expose
-def start_transaction(price):
-    log("New transaction started:", price)
-
-    # start scan in background
-    async_scan = eel.spawn(await_card_scan, price)
-    eel.spawn(await_exit_transaction, async_scan)
 
 
 @eel.expose
