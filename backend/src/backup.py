@@ -2,46 +2,45 @@ import requests
 import os
 import socket
 import pysftp
+import base64
 
 from pathlib import Path
-from cryptography.fernet import Fernet
+from datetime import datetime
 
 DB_PATH = str(Path(__file__).parent.parent) + "/db/prod.sqlite3"
 
 def internet_on():
     try:
-        requests.get("https://google.com", timeout=1)
+        requests.get("https://google.com")
         return True
     except (requests.ConnectionError, requests.Timeout) as exception:
         return False
 
+
 def send_backup():
     print("Sending new backup...")
-    key = list(os.environ.get('SFTP_PRIVATE_KEY'))
-    print(bytes(key))
-    fernet = Fernet(bytes(key))
-    host=os.environ.get('SFTP_HOST')
-    user=os.environ.get('SFTP_USERNAME')
-    pswd = fernet.decrypt(os.environ.get('SFTP_AUTH_CHAIN')).decode()
     with pysftp.Connection(
-        host=host,
-        username=user, 
-        password=pswd
+        host=os.environ.get('SFTP_HOST'),
+        username=os.environ.get('SFTP_USERNAME'),
+        password=base64.b64decode(os.environ.get("SFTP_KEY"))
     ) as sftp:
-        sftp.put(DB_PATH, os.environ.get('SFTP_HOST_PATH'))
+        date = datetime.now().strftime("%d_%m_%Y_%H:%M:%S")
+        backup_file = os.environ.get('SFTP_HOST_PATH') + '/db_backup_' + date + '.sqlite3'
+        sftp.put(DB_PATH, backup_file)
 
-    print("Backup sent to ", host)
+    print("Backup sent to ", os.environ.get('SFTP_HOST'))
+
 
 def check_if_backup_required():
     if not internet_on():
         print("Backup check canceled : NO INTERNET")
         return
 
-    # local_ip = str(socket.gethostbyname(socket.gethostname()))
-    # if local_ip == "192.168.1.29" or local_ip == "192.168.1.37":
-    #     print("Backup canceled : Celian's home detected")
-    #     return
-    
+    local_ip = str(socket.gethostbyname(socket.gethostname()))
+    if local_ip == "192.168.1.29" or local_ip == "192.168.1.37":
+        print("Backup canceled : Celian's home detected")
+        return
+
     try:
         send_backup()
     except Exception as e:
