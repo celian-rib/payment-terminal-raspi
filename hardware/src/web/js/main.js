@@ -12,7 +12,10 @@ const router = {
  * @param url url a charger
  */
 function goTo(url) {
-	window.location.replace(url);
+	if (window.location.href.includes('reversed'))
+		window.location.replace(url + '?reversed=true');
+	else
+		window.location.replace(url);
 }
 
 /**
@@ -23,21 +26,15 @@ function goToWithParam(pageID, params) {
 	const element = router[pageID];
 	if (element == null)
 		throw 'Page doest not exists';
-	goTo(element + params);
+	if (window.location.href.includes('reversed'))
+		params += "&reversed=true";
+	window.location.replace(element + params);
 }
 
 /**
  * Permet d'attendre une durée précise
  */
 const delay = async (duration) => new Promise((resolve) => setTimeout(() => resolve(), duration));
-
-for (let route of Object.keys(router)) {
-	const element = document.getElementById(route);
-	if (element == null)
-		continue;
-	element.addEventListener('click', () => goTo(router[route]));
-}
-
 
 eel.expose(prompt_alerts);
 /**
@@ -103,3 +100,14 @@ function getPriceString(price) {
 		return (price / 100) + '.00€';
 	}
 }
+
+for (let route of Object.keys(router)) {
+	const element = document.getElementById(route);
+	if (element == null)
+		continue;
+	element.addEventListener('click', () => goTo(router[route]));
+}
+
+if (parseURLParams(window.location.href)['reversed'] != undefined)
+	document.getElementsByTagName('html')[0].style = 'transform: rotate(180deg);'
+

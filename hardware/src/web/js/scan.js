@@ -1,21 +1,15 @@
-let buttonMinusCent;
-let buttonMinusOne;
-let buttonPlusOne;
-let buttonPlusCent;
-
-let priceText;
-let price = 0;
-
 /**
  * Fonction appellée lorsque la page est entièrement chargée
  */
 window.onload = function() {
-	buttonMinusCent = document.getElementById('but1');
-	buttonMinusOne = document.getElementById('but2');
-	buttonPlusOne = document.getElementById('but3');
-	buttonPlusCent = document.getElementById('but4');
+	let price = 0;
 
-	priceText = document.getElementById('value');
+	const buttonMinusCent = document.getElementById('but1');
+	const buttonMinusOne = document.getElementById('but2');
+	const buttonPlusOne = document.getElementById('but3');
+	const buttonPlusCent = document.getElementById('but4');
+
+	const priceText = document.getElementById('value');
 
 	buttonMinusCent.addEventListener('click', () => {
 		price -= 10;
