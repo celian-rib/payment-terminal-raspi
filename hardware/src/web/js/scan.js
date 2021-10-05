@@ -8,8 +8,36 @@ window.onload = function() {
 	const buttonMinusOne = document.getElementById('but2');
 	const buttonPlusOne = document.getElementById('but3');
 	const buttonPlusCent = document.getElementById('but4');
+	const buttonIsZero = document.getElementById('butIsZero');
+	const buttonPlusFive = document.getElementById('butPlusFive');
+	const buttonPlusTen = document.getElementById('butPlusTen');
+	const buttonPlusTwenty = document.getElementById('butPlusTwenty');
 
 	const priceText = document.getElementById('value');
+
+	buttonIsZero.addEventListener('click', () => {
+		price = 0;
+
+		priceText.innerHTML = getPriceString(price);
+	}, false);
+
+	buttonPlusFive.addEventListener('click', () => {
+		price += 500;
+
+		priceText.innerHTML = getPriceString(price);
+	}, false);
+
+	buttonPlusTen.addEventListener('click', () => {
+		price += 1000;
+
+		priceText.innerHTML = getPriceString(price);
+	}, false);
+
+	buttonPlusTwenty.addEventListener('click', () => {
+		price += 2000;
+
+		priceText.innerHTML = getPriceString(price);
+	}, false);
 
 	buttonMinusCent.addEventListener('click', () => {
 		price -= 10;
