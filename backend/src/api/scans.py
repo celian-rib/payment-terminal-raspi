@@ -1,4 +1,4 @@
-from flask import abort
+from flask import abort, jsonify
 from flask_restx import Resource, Namespace, fields
 
 from .utils import abort_if_doesnt_exist, authentification_required
@@ -86,3 +86,12 @@ class Scans(Resource):
                 'transactionDate': transaction_date,
                 'cardCurrency': card_currency
             }
+
+    @authentification_required
+    def get(self, **kwargs):
+        last_scans = []
+        with Database(auto_commit=True) as db:
+            result = db.query(Scan).order_by(Scan.date.desc()).limit(7)
+            for scan in result:
+                last_scans.append(scan.to_dict())
+        return jsonify(last_scans)

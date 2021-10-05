@@ -1,10 +1,12 @@
 const router = {
-	'goToScan': '/pages/scan.html',
-	'goToStats': '/pages/stats.html',
 	'goToHome': '/index.html',
+	'goToScan': '/pages/scan.html',
 	'goToNfc': '/pages/nfc.html',
 	'goToUnvalidTransac': '/pages/unvalidTransac.html',
-	'goToValidTransac': '/pages/validTransac.html'
+	'goToValidTransac': '/pages/validTransac.html',
+	'goToAdmin': '/pages/admin.html',
+	'goToStats': '/pages/stats.html',
+	'goToHisto': '/pages/histo.html',
 };
 
 /**

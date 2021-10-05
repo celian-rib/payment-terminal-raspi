@@ -88,8 +88,17 @@ def get_stats():
     log("Retreiving stats")
     try:
         stats = server.get_stats().json()
-        log(stats)
         return stats
     except:
         log("Error while retreiving stats...")
+        return None
+
+@eel.expose
+def get_historic():
+    log("Retreiving historic")
+    try:
+        historic = server.get_historic().json()
+        return historic
+    except:
+        log("Error while retreiving historic...")
         return None
