@@ -8,12 +8,16 @@ from requests.exceptions import ConnectionError
 pn532 = None
 
 if is_raspberry():
-    from py532lib.i2c import *
-    from py532lib.frame import *
-    from py532lib.constants import *
+    try:
+        from py532lib.i2c import *
+        from py532lib.frame import *
+        from py532lib.constants import *
 
-    pn532 = Pn532_i2c()
-    pn532.SAMconfigure()
+        pn532 = Pn532_i2c()
+        pn532.SAMconfigure()
+    except:
+        log("[ ERROR: NFC sensor not detected ]")
+        eel.prompt_alerts("Capteur NFC non détecté...")
 
 
 def get_uid_string(byte_list) -> str:
