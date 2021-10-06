@@ -97,7 +97,7 @@ def get_stats():
 def get_historic():
     log("Retreiving historic")
     try:
-        historic = server.get_historic().json()
+        historic = server.get_historic(5).json()
         return historic
     except:
         log("Error while retreiving historic...")

@@ -20,5 +20,5 @@ def send_scan(card_uid, transaction_value):
 def get_stats():
     return requests.get(url=BACKEND_URL + "/api/stats", headers=HEADERS)
 
-def get_historic():
-    return requests.get(url=BACKEND_URL + "/api/scan", headers=HEADERS)
+def get_historic(count):
+    return requests.get(url=BACKEND_URL + "/api/scans/" + str(count), headers=HEADERS)

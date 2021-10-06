@@ -87,11 +87,13 @@ class Scans(Resource):
                 'cardCurrency': card_currency
             }
 
+@ns.route('/scans/<count>')
+class Scans(Resource):
     @authentification_required
-    def get(self, **kwargs):
+    def get(self, count, **kwargs):
         last_scans = []
         with Database(auto_commit=True) as db:
-            result = db.query(Scan).order_by(Scan.date.desc()).limit(7)
+            result = db.query(Scan).order_by(Scan.date.desc()).limit(count)
             for scan in result:
                 last_scans.append(scan.to_dict())
         return jsonify(last_scans)
