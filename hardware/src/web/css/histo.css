@@ -5,14 +5,14 @@
     align-items: center;
     height: 100%;
     width: 100%;
+    color: white;
 }
 
 .histoTemplate {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: grey;
-    opacity: 0.5;
+    background-color: rgb(87, 98, 99);
     color: white;
     font-size: 10px;
     font-weight: 600;
@@ -26,6 +26,11 @@
     align-items: center;
 }
 
+.histoTemplate> div:first-child {
+    display: flex;
+    width: 50%;
+}
+
 .histoTemplate > div > img {
     height: 2em;
     width: 2em;
@@ -33,6 +38,15 @@
     filter: invert(100%);
 }
 
-.histoTemplate > p:nth-child(2) {
+.histoTemplate > p:nth-child(3) {
     margin-right: 5%;
+}
+
+.histoTemplate > p:nth-child(2) {
+    opacity: 0.7;
+}
+
+.histoTemplate > div:first-child > p:first-child {
+    min-width: 10%;
+    margin-left: 10%;
 }

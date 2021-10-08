@@ -95,5 +95,7 @@ class Scans(Resource):
         with Database(auto_commit=True) as db:
             result = db.query(Scan).order_by(Scan.date.desc()).limit(count)
             for scan in result:
-                last_scans.append(scan.to_dict())
+                scan = scan.to_dict()
+                scan['user'] = db.query(User).filter_by(card_uid=scan['card_uid']).first().to_dict()
+                last_scans.append(scan)
         return jsonify(last_scans)
