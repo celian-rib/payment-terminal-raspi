@@ -60,6 +60,10 @@ Os : Raspberry PI OS Lite
     - Make hostname visible 
     ```echo "PROMPT='%{$fg_bold[cyan]%}$USER%{$fg_bold[blue]%}@%m%}%{$fg_bold[cyan]%} %c $(git_prompt_info)%{$reset_color%}'" >> ~/.zshrc```
 
+    - Disable ask-for-update prompt :
+    ```nano ~/.zshrc```
+        - decomment ```DISABLE_UPDATE_PROMPT="true"```
+
 <br/>
 <br/>
 <br/>
