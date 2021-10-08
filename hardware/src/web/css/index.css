@@ -8,8 +8,6 @@ div.mainContainer {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    font-size: 15px;
-    font-weight: 600;
 }
 
 img.invert {

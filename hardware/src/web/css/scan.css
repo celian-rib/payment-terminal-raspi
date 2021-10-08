@@ -1,6 +1,4 @@
 .priceSelection {
-    font-size: 20px;
-    font-weight: 600;
     margin-top: 15px;
     width: 100%;
     display: flex;
@@ -14,12 +12,13 @@
 }
 
 p {
+    font-size: 20px;
+    font-weight: 600;
     color: white;
+    margin-top: 0;
 }
 
 .footContain {
-    font-size: 20px;
-    font-weight: 600;
     margin-bottom: -30px;
     margin-top: 20px;
     width: 100%;

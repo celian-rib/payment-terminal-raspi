@@ -1,0 +1,52 @@
+.histoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    color: white;
+}
+
+.histoTemplate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(87, 98, 99);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    width: 80%;
+    height: 30px;
+    border-radius: 7px;
+}
+
+.histoTemplate>div {
+    display: flex;
+    align-items: center;
+}
+
+.histoTemplate> div:first-child {
+    display: flex;
+    width: 50%;
+}
+
+.histoTemplate > div > img {
+    height: 2em;
+    width: 2em;
+    padding: 15px;
+    filter: invert(100%);
+}
+
+.histoTemplate > p:nth-child(3) {
+    margin-right: 5%;
+}
+
+.histoTemplate > p:nth-child(2) {
+    opacity: 0.7;
+}
+
+.histoTemplate > div:first-child > p:first-child {
+    min-width: 10%;
+    margin-left: 10%;
+}
