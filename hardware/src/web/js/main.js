@@ -1,6 +1,7 @@
 const router = {
 	'goToHome': '/index.html',
-	'goToScan': '/pages/scan.html',
+	'goToAjout': '/pages/ajout.html',
+	'goToDebit': '/pages/debit.html',
 	'goToNfc': '/pages/nfc.html',
 	'goToUnvalidTransac': '/pages/unvalidTransac.html',
 	'goToValidTransac': '/pages/validTransac.html',

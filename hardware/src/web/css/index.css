@@ -12,5 +12,17 @@ div.mainContainer {
 
 img.invert {
     filter: invert(100%);
-    width: 107px;
+    width: 90px;
+}
+
+.transactionContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.transactionContainer> .btn {
+    width: 33%;
 }
