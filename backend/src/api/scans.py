@@ -39,8 +39,7 @@ class Scans(Resource):
 
         with Database(auto_commit=True) as db:
 
-            unkown_card = db.query(User).filter_by(
-                card_uid=card_uid).count() == 0
+            unkown_card = db.query(User).filter_by(card_uid=card_uid).count() == 0
 
             if unkown_card:
                 if currency_amount >= 0:
@@ -58,7 +57,7 @@ class Scans(Resource):
                 else:
                     transaction_status = "NOT_ENOUGH_CURRENCY"
 
-            scan = Scan(card_uid, currency_amount)
+            scan = Scan(card_uid, currency_amount, transaction_status)
             db.add(scan)
 
             db.commit()
