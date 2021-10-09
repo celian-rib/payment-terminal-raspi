@@ -10,10 +10,12 @@ class Scan(Base, SerializerMixin):
     date = Column(DateTime, unique=False, default=datetime.now)
     card_uid = Column(String, unique=False)
     currency_amount = Column(Integer, unique=False)
+    transaction_status = Column(String, unique=False)
 
-    def __init__(self, card_uid, currency_amount):
+    def __init__(self, card_uid, currency_amount, transaction_status):
         self.card_uid = card_uid
         self.currency_amount = currency_amount
+        self.transaction_status = transaction_status
 
     def __repr__(self):
         return f'<User {self.name!r}>'

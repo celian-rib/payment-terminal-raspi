@@ -11,13 +11,15 @@ window.onload = async function () {
         const timeStr = getDateString(scanDate);
         const node = document.createElement("div");
         node.setAttribute('class', 'histoTemplate');
+        if(scan.transaction_status != "ACCEPTED")
+            node.style = "background-color: #b36060;"
         node.innerHTML = `
             <div>
                 <p>${scan.user.user_id}</p>
                 <img src="../img/user.png" />
                 <p>${scan.user.first_name ?? "--"}</p>
             </div>
-            <p>${timeStr}</p>
+            <p style="font-size: 11px;">${timeStr}</p>
             <p>${getPriceString(scan.currency_amount)}</p>
         `;
         container.append(node);
