@@ -4,7 +4,7 @@
 window.onload = function() {
 	let price = 0;
 
-	const buttonScans = document.getElementsByClassName('butScan');
+	const buttonScans = document.getElementsByClassName('btnPrice');
 
 	const priceText = document.getElementById('value');
 
