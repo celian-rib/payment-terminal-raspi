@@ -1,10 +1,9 @@
 import eel
 import server
 import gevent
+import requests
 
 from utils import log, is_raspberry
-from requests.exceptions import ConnectionError
-
 pn532 = None
 
 if is_raspberry():
@@ -44,7 +43,7 @@ def await_card_scan(price):
         transaction_data = server.send_scan(card_uid, float(price)).json()
         log("Transaction result : ", transaction_data)
     except Exception as e:
-        if isinstance(e, ConnectionError):
+        if isinstance(e, requests.ConnectionError):
             log("[ Request Error !! ]")
             eel.scan_cancel(
                 0, 0, "La transaction n'a pas pu être envoyée au serveur...")
