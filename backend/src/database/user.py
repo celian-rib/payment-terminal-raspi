@@ -14,6 +14,7 @@ class User(Base, SerializerMixin):
     name = Column(String, default=None)
     first_name = Column(String, default=None)
     email = Column(String, default=None)
+    admin = Column(Integer, default=False)
 
     def __init__(self, card_uid, currency_amount):
         self.card_uid = card_uid
