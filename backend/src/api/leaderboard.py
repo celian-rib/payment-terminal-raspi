@@ -12,7 +12,7 @@ ns = Namespace('leaderboard', description='Users leaderboard')
 
 @ns.route('/leaderboard')
 class Leaderboard(Resource):
-    @authentification_required
+    # @authentification_required
     def get(self, **kwargs):
 
         with Database(auto_commit=True) as db:
@@ -27,10 +27,16 @@ class Leaderboard(Resource):
                     .filter_by(transaction_status="ACCEPTED").all()[0][0]
                 score = abs(raw_score) if raw_score != None else 0
                 users_scores.append({
-                    "user": user.to_dict(),
+                    "user": user.to_public_dict(
+                        User.user_id,
+                        User.name,
+                        User.first_name,
+                        User.email
+                    ),
                     "score": score
                 })
-            
-        users_scores = sorted(users_scores, key=lambda d: d['score'], reverse=True)
+
+        users_scores = sorted(
+            users_scores, key=lambda d: d['score'], reverse=True)
 
         return jsonify(users_scores)

@@ -18,7 +18,13 @@ class Users(Resource):
         with Database(auto_commit=True) as db:
             result = db.query(User).all()
             for user in result:
-                user_list.append(user.to_dict())
+                user_list.append(user.to_public_dict(
+                    User.user_id,
+                    User.name,
+                    User.first_name,
+                    User.email,
+                    User.creation_date
+                ))
         return jsonify(user_list)
 
 
@@ -37,7 +43,14 @@ class SingleUser(Resource):
         with Database(auto_commit=True) as db:
             user = db.query(User).filter_by(user_id=user_id).first()
             if user:
-                user = user.to_dict()
+                user = user.to_public_dict(
+                    User.user_id,
+                    User.name,
+                    User.first_name,
+                    User.email,
+                    User.creation_date,
+                    User.currency_amount,
+                )
 
         abort_if_doesnt_exist(
             user, 
@@ -67,7 +80,14 @@ class SingleUserCardUID(Resource):
         with Database(auto_commit=True) as db:
             user = db.query(User).filter_by(card_uid=card_uid).first()
             if user:
-                user = user.to_dict()
+                user = user.user.to_public_dict(
+                    User.user_id,
+                    User.name,
+                    User.first_name,
+                    User.email,
+                    User.creation_date,
+                    User.currency_amount,
+                )
 
         abort_if_doesnt_exist(
             user, 

@@ -3,8 +3,9 @@ from sqlalchemy.sql.sqltypes import DateTime, Float
 from database.database import Base
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
+from .public_data_filter import PublicDataFilter
 
-class User(Base, SerializerMixin):
+class User(Base, SerializerMixin, PublicDataFilter):
     __tablename__ = 'users'
     user_id = Column(Integer, primary_key=True, autoincrement=True)
     card_uid = Column(String, nullable=False)
