@@ -12,7 +12,7 @@ ns = Namespace('leaderboard', description='Users leaderboard')
 
 @ns.route('/leaderboard')
 class Leaderboard(Resource):
-    # @authentification_required
+    @authentification_required
     def get(self, **kwargs):
 
         with Database(auto_commit=True) as db:
