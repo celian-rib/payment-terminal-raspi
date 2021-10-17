@@ -22,7 +22,12 @@ def start_with_client():
             '--window-position=0,0',
             '--start-fullscreen',
             '--disable-features=Translate',
-            '--kiosk'
+            '--incognito',
+            '--kiosk',
+            '--fast',
+            '--fast-start',
+            '--disk-cache-dir=/dev/null'
+            '--noerrdialogs'
         ]
     )
 
