@@ -1,14 +1,14 @@
 const router = {
-    'goToHome': '/index.html',
-    'goToAjout': '/pages/ajout.html',
-    'goToDebit': '/pages/debit.html',
-    'goToNfc': '/pages/nfc.html',
-    'goToUnvalidTransac': '/pages/unvalidTransac.html',
-    'goToValidTransac': '/pages/validTransac.html',
-    'goToAdmin': '/pages/admin.html',
-    'goToStats': '/pages/stats.html',
-    'goToHisto': '/pages/histo.html',
-    'goToLock': '/pages/lock.html',
+	'goToHome': '/index.html',
+	'goToAjout': '/pages/ajout.html',
+	'goToDebit': '/pages/debit.html',
+	'goToNfc': '/pages/nfc.html',
+	'goToUnvalidTransac': '/pages/unvalidTransac.html',
+	'goToValidTransac': '/pages/validTransac.html',
+	'goToAdmin': '/pages/admin.html',
+	'goToStats': '/pages/stats.html',
+	'goToHisto': '/pages/histo.html',
+	'goToLock': '/pages/lock.html',
 };
 
 /**
@@ -16,10 +16,10 @@ const router = {
  * @param url url a charger
  */
 function goTo(url) {
-    if (window.location.href.includes('raspberry'))
-        window.location.replace(url + '?raspberry=true');
-    else
-        window.location.replace(url);
+	if (window.location.href.includes('raspberry'))
+		window.location.replace(url + '?raspberry=true');
+	else
+		window.location.replace(url);
 }
 
 /**
@@ -27,18 +27,18 @@ function goTo(url) {
  * @param pageId identifiant de la page a charger (Un des noms présent dans router)
  */
 function goToWithParam(pageID, params) {
-    const element = router[pageID];
-    if (element == null)
-        throw 'Page doest not exists';
-    if (window.location.href.includes('raspberry'))
-        params += "&raspberry=true";
-    window.location.replace(element + params);
+	const element = router[pageID];
+	if (element == null)
+		throw 'Page doest not exists';
+	if (window.location.href.includes('raspberry'))
+		params += "&raspberry=true";
+	window.location.replace(element + params);
 }
 
 /**
  * Permet d'attendre une durée précise
  */
-const delay = async(duration) => new Promise((resolve) => setTimeout(() => resolve(), duration));
+const delay = async (duration) => new Promise((resolve) => setTimeout(() => resolve(), duration));
 
 eel.expose(prompt_alerts);
 /**
@@ -47,7 +47,7 @@ eel.expose(prompt_alerts);
  * @param description message à afficher dans l'alerte
  */
 function prompt_alerts(description) {
-    alert(description);
+	alert(description);
 }
 
 
@@ -59,7 +59,7 @@ eel.expose(get_current_url);
  * @return l'url en question
  */
 function get_current_url() {
-    return window.location.href;
+	return window.location.href;
 }
 
 /**
@@ -68,24 +68,24 @@ function get_current_url() {
  * @return objet contenant les parmètre d'url
  */
 function parseURLParams(url) {
-    var queryStart = url.indexOf('?') + 1,
-        queryEnd = url.indexOf('#') + 1 || url.length + 1,
-        query = url.slice(queryStart, queryEnd - 1),
-        pairs = query.replace(/\+/g, ' ').split('&'),
-        parms = {},
-        i, n, v, nv;
+	var queryStart = url.indexOf('?') + 1,
+		queryEnd = url.indexOf('#') + 1 || url.length + 1,
+		query = url.slice(queryStart, queryEnd - 1),
+		pairs = query.replace(/\+/g, ' ').split('&'),
+		parms = {},
+		i, n, v, nv;
 
-    if (query === url || query === '') return;
+	if (query === url || query === '') return;
 
-    for (i = 0; i < pairs.length; i++) {
-        nv = pairs[i].split('=', 2);
-        n = decodeURIComponent(nv[0]);
-        v = decodeURIComponent(nv[1]);
+	for (i = 0; i < pairs.length; i++) {
+		nv = pairs[i].split('=', 2);
+		n = decodeURIComponent(nv[0]);
+		v = decodeURIComponent(nv[1]);
 
-        if (!parms.hasOwnProperty(n)) parms[n] = [];
-        parms[n].push(nv.length === 2 ? v : null);
-    }
-    return parms;
+		if (!parms.hasOwnProperty(n)) parms[n] = [];
+		parms[n].push(nv.length === 2 ? v : null);
+	}
+	return parms;
 }
 
 /**
@@ -96,18 +96,18 @@ function parseURLParams(url) {
  * @return un string formaté pour le prix
  */
 function getPriceString(price) {
-    if ((price / 100) % 1 != 0) {
-        //decimal number
-        return (price / 100) + '0€';
-    } else {
-        // non decimal number
-        return (price / 100) + '.00€';
-    }
+	if ((price / 100) % 1 != 0) {
+		//decimal number
+		return (price / 100) + '0€';
+	} else {
+		// non decimal number
+		return (price / 100) + '.00€';
+	}
 }
 
 for (let route of Object.keys(router)) {
-    const element = document.getElementById(route);
-    if (element == null)
-        continue;
-    element.addEventListener('click', () => goTo(router[route]));
+	const element = document.getElementById(route);
+	if (element == null)
+		continue;
+	element.addEventListener('click', () => goTo(router[route]));
 }
