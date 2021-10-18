@@ -14,7 +14,7 @@ def start_headless():
 def start_with_client():
     log("[ Client mode ]")
     eel.start(
-        'index.html?reversed=true',
+        'index.html?raspberry=true',
         mode='chrome',
         host='0.0.0.0',
         cmdline_args=[
