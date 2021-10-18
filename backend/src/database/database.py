@@ -14,6 +14,7 @@ _SessionFactory = scoped_session(sessionmaker(bind=engine))
 db = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
+
 Base = declarative_base()
 Base.query = db.query_property()
 
