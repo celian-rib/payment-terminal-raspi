@@ -9,7 +9,7 @@ const animation_tick = 400;
  */
 function textAnimation() {
     const text = document.getElementById('textWriter');
-    const anim = async() => {
+    const anim = async () => {
         text.innerHTML = base;
         await delay(animation_tick);
         text.innerHTML = base + '.';
@@ -56,7 +56,7 @@ function scan_cancel(money, userID, reason) {
 /**
  * Fonction appelée lorsque la page est entièrement chargée
  */
-window.onload = function() {
+window.onload = function () {
     // Retreive price from url
     const urlData = parseURLParams(window.location.href);
     price = Object.keys(urlData)[0];
