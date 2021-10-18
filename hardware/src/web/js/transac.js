@@ -13,3 +13,6 @@ window.onload = function () {
 	if (document.getElementById('reasonBug'))
 		document.getElementById('reasonBug').innerHTML = reason;
 };
+
+if (parseURLParams(window.location.href)['raspberry'] != undefined)
+	document.getElementsByTagName('html')[0].style = 'transform: rotate(180deg);'
