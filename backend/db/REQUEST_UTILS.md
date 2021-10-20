@@ -1,30 +1,41 @@
-# Nombre de scans moyen par jour depuis le début :
+## Requêtes utiles :
 
-```select avg(nb) from (select count(*) as nb, date from scans group by strftime('%Y-%m-%d', date));```
+### Nombre de scans moyen par jour :
 
-# Dépense moyenne par jour au total :
+```sql
+select avg(nb) from (select count(*) as nb, date from scans 
+group by strftime('%Y-%m-%d', date));
+```
 
+### Moyenne des dépenses par jour :
+
+```sql
 select avg(nb) / 100 as '€ spend avg per day' from 
 (   select SUM(currency_amount) as nb, date 
     from scans 
     where currency_amount < 0 and transaction_status = 'ACCEPTED' 
     group by strftime('%Y-%m-%d', date)
 );
+```
 
-# Dépense moyenne par jour pour un utilisateur
+### Dépense moyenne par jour pour un utilisateur
 
+```sql
 select avg(nb) / 100 as '€ spend avg per day by one active user' from 
 (   select SUM(currency_amount) as nb, date, card_uid
     from scans 
     where currency_amount < 0 and transaction_status = 'ACCEPTED'
     group by strftime('%Y-%m-%d', date), card_uid
 );
+```
 
-# Argent total dépensé sur les 7 derniers jours
+### Argent total dépensé sur les 7 derniers jours
 
+```sql
 select SUM(currency_amount) / 100 from scans
 where date > date('now','-7 days') and transaction_status = 'ACCEPTED' and currency_amount < 0
+```
 
-# Argent total dépensé en moyenne par semaine
+### Argent total dépensé en moyenne par semaine
 
-# TO DO
+ TO DO
