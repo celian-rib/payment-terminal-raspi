@@ -8,6 +8,7 @@ const router = {
 	'goToAdmin': '/pages/admin.html',
 	'goToStats': '/pages/stats.html',
 	'goToHisto': '/pages/histo.html',
+	'goToAsso': '/pages/consoAsso.html',
 };
 
 /**
@@ -111,6 +112,7 @@ for (let route of Object.keys(router)) {
 	element.addEventListener('click', () => goTo(router[route]));
 }
 
-if (parseURLParams(window.location.href)['reversed'] != undefined)
-	document.getElementsByTagName('html')[0].style = 'transform: rotate(180deg);'
+if(parseURLParams(window.location.href))
+	if (parseURLParams(window.location.href)['reversed'] != undefined)
+		document.getElementsByTagName('html')[0].style = 'transform: rotate(180deg);'
 

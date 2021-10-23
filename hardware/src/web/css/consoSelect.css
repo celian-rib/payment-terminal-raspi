@@ -1,0 +1,31 @@
+body {
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.itemsContainer {
+    height: 90%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.itemsContainer .btn {
+    width: 20%;
+    margin: 10px;
+    font-size: 0.8em;
+}
+
+#nextArrow {
+    position: absolute;
+    right: 30px;
+    transform: translateX(10px) translateY(25px) rotate(180deg) ;
+}
+
+#previousArrow {
+    position: absolute;
+    left: 30px;
+}
