@@ -6,9 +6,11 @@ const router = {
 	'goToUnvalidTransac': '/pages/unvalidTransac.html',
 	'goToValidTransac': '/pages/validTransac.html',
 	'goToAdmin': '/pages/nfc.html?target=/pages/admin.html',
+	'goToAdminSudo': '/pages/admin.html',
 	'goToStats': '/pages/stats.html',
 	'goToHisto': '/pages/histo.html',
 	'goToSelect': '/pages/nfc.html?target=/pages/consoSelect.html',
+	'goToLock': '/pages/lock.html',
 };
 
 /**
@@ -16,8 +18,8 @@ const router = {
  * @param url url a charger
  */
 function goTo(url) {
-	if (window.location.href.includes('reversed'))
-		window.location.replace(url + '?reversed=true');
+	if (window.location.href.includes('raspberry'))
+		window.location.replace(url + '?raspberry=true');
 	else
 		window.location.replace(url);
 }
@@ -30,8 +32,8 @@ function goToWithParam(pageID, params) {
 	const element = router[pageID];
 	if (element == null)
 		throw 'Page doest not exists';
-	if (window.location.href.includes('reversed'))
-		params += "&reversed=true";
+	if (window.location.href.includes('raspberry'))
+		params += "&raspberry=true";
 	window.location.replace(element + params);
 }
 
@@ -111,8 +113,3 @@ for (let route of Object.keys(router)) {
 		continue;
 	element.addEventListener('click', () => goTo(router[route]));
 }
-
-if(parseURLParams(window.location.href))
-	if (parseURLParams(window.location.href)['reversed'] != undefined)
-		document.getElementsByTagName('html')[0].style = 'transform: rotate(180deg);'
-

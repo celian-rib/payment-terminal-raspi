@@ -9,7 +9,7 @@ const animation_tick = 400;
  */
 function textAnimation() {
 	const text = document.getElementById('textWriter');
-	const anim = async() => {
+	const anim = async () => {
 		text.innerHTML = base;
 		await delay(animation_tick);
 		text.innerHTML = base + '.';
@@ -56,17 +56,26 @@ function scan_cancel(money, userID, reason) {
 /**
  * Fonction appelée lorsque la page est entièrement chargée
  */
-window.onload = function() {
-	// Retreive price from url
+window.onload = async () => {
+	textAnimation(); 
 	const urlData = parseURLParams(window.location.href);
+
 	if(Object.keys(urlData)[0] == "target"){
 		document.getElementById("priceText").innerHTML = "Scanner carte";
 		document.getElementById("priceText").style = "font-size: 30px; letter-spacing: 2px;"
+		result = await eel.start_admin_validation()()
+
+		if (result.admin)
+			goTo(`${urlData.target[0]}?cardUid=${result.card_uid}`);
+		else
+			goTo("/index.html");
 	} else{
 		price = Object.keys(urlData)[0];
 		priceText.innerHTML = (price > 0 ? '+' : '') + getPriceString(price);
 		// Start transaction on python side
 		eel.start_transaction(price);
 	}
-	textAnimation();
 };
+
+if (parseURLParams(window.location.href)['raspberry'] != undefined)
+	document.getElementsByTagName('html')[0].style = 'transform: rotate(180deg);'

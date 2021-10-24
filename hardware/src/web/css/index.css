@@ -26,3 +26,12 @@ img.invert {
 .transactionContainer> .btn {
     width: 33%;
 }
+
+.mainContainer > img:first-child {
+    position: absolute;
+    top: 0.7em;
+    right: 1em;
+    height: 1.5em;
+    width: 1.5em;
+    padding: 15px;
+}

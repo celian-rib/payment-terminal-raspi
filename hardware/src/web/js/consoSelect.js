@@ -20,18 +20,24 @@ const products = [
 
 let currentPage = 0;
 const pageSize = 4;
-const pageElements = []
+const pageElements = [];
+let user = undefined;
 
-const addProduct = (item, adding) => {
-    if(!adding)
-        console.log(item.name, item.price);
-    else
-        console.log(item.name, -item.price);
+const addProduct = async (item, adding) => {
+    const new_dept = await eel.update_debt(user.card_uid, adding ? item.price : -item.price)
+    document.getElementById("assoDebt").innerHTML += new_dept;
 }
 
-window.onload = () => {
-    document.getElementById("previousArrow").style = "visibility: hidden;";
+window.onload = async () => {
+    
+    const cardUid = new URLSearchParams(window.location.search).get("cardUid");
+    user = await eel.get_user(cardUid)()
+    console.log(user)
 
+    document.getElementById("assoName").innerHTML = user.first_name || "Admin";
+    document.getElementById("assoDebt").innerHTML += user.debt_amount;
+
+    document.getElementById("previousArrow").style = "visibility: hidden;";
     document.getElementById("resetDebt").addEventListener("click", () => {
         alert("Confirmer ?")
     }); // FAUT CHANGER AVEC LA DB DU CON

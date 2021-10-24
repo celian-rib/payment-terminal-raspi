@@ -25,6 +25,13 @@ def get_historic(count):
 
 def user_is_admin(card_uid):
     response = requests.get(url=BACKEND_URL + "/api/user/card_uid/" + str(card_uid), headers=HEADERS)
-    print(response.json())
+    return response.json()["admin"]
 
-user_is_admin(75113683274751461701049712861171191292128)
+def get_user(card_uid):
+    return requests.get(url=BACKEND_URL + "/api/user/card_uid/" + str(card_uid), headers=HEADERS)
+
+def post_debt_amount(card_uid, debt_update_amount):
+    payload = {
+        'debt_update_amount': debt_update_amount
+    }
+    return requests.post(url=BACKEND_URL + "/api/user/card_uid/" + str(card_uid), json=payload)

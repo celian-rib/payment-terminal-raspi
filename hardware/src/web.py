@@ -1,10 +1,9 @@
 import eel
 import server
 import gevent
+import requests
 
 from utils import log, is_raspberry
-from requests.exceptions import ConnectionError
-
 pn532 = None
 
 if is_raspberry():
@@ -26,7 +25,7 @@ def get_uid_string(byte_list) -> str:
 def read_scanner():
     if not pn532:
         # artificial scan
-        delay = 5
+        delay = 2
         log("[ non-pi development server detected ]")
         log("[ SIMULATING SCAN IN", delay, "SEC]")
         eel.sleep(delay)
@@ -44,7 +43,7 @@ def await_card_scan(price):
         transaction_data = server.send_scan(card_uid, float(price)).json()
         log("Transaction result : ", transaction_data)
     except Exception as e:
-        if isinstance(e, ConnectionError):
+        if isinstance(e, requests.ConnectionError):
             log("[ Request Error !! ]")
             eel.scan_cancel(
                 0, 0, "La transaction n'a pas pu être envoyée au serveur...")
@@ -82,11 +81,25 @@ def start_transaction(price):
         eel.sleep(1)
         log(loaded_url)
 
+@eel.expose
 def start_admin_validation():
     log("New scan started:")
     card_data = read_scanner()  # blocking call
     card_uid = get_uid_string(list(card_data))
-    
+    return {
+        "admin": server.user_is_admin(card_uid),
+        "card_uid": card_uid
+    }
+
+@eel.expose
+def get_user(card_uid):
+    log("Retreiving user")
+    try:
+        user = server.get_user(card_uid).json()
+        return user
+    except:
+        log("Error while retreiving user...")
+        return None
 
 @eel.expose
 def get_stats():
@@ -106,4 +119,14 @@ def get_historic():
         return historic
     except:
         log("Error while retreiving historic...")
+        return None
+
+@eel.expose
+def update_debt(card_uid, debt_update_amount):
+    log("Updating dept")
+    try:
+        debt_amount = server.post_debt_amount(card_uid, debt_update_amount).json()
+        return debt_amount
+    except:
+        log("Error while updating dept...")
         return None
