@@ -1,21 +1,21 @@
 // tous les produits de la carte, conso asso
 const products = [
-    { name: "Boisson", price: 60 },
-    { name: "Bueno/Bready/Chips", price: 70 },
-    { name: "Lion/GSucre", price: 40 },
-    { name: "PomPote/Twix", price: 40 },
-    { name: "PastaBox", price: 220 },
-    { name: "Smarties", price: 60 },
-    { name: "Nestle", price: 60 },
-    { name: "Crunch/KitKat/M&Ms", price: 60 },
-    { name: "Sandwich/Riz", price: 170 },
-    { name: "Bounty/Dragibus", price: 50 },
-    { name: "GChoco/Snickers", price: 50 },
-    { name: "Caprisun", price: 30 },
-    { name: "Monster", price: 120 },
-    { name: "Cafés", price: 40 },
-    { name: "PastaXtrem", price: 370 },
-    { name: "Nouilles", price: 110 },
+    { name: "Boisson", price: 60, color: "#f6e58d"},
+    { name: "Bueno/Bready/Chips", price: 70, color: "#c7ecee"},
+    { name: "Lion/GSucre", price: 40, color: "#ffbe76"},
+    { name: "PomPote/Twix", price: 40, color: "#55efc4"},
+    { name: "PastaBox", price: 220, color: "#fab1a0"},
+    { name: "Smarties", price: 60, color: "#686de0"},
+    { name: "Nestle", price: 60, color: "#f9ca24"},
+    { name: "Crunch/KitKat/M&Ms", price: 60, color: "#a29bfe"},
+    { name: "Sandwich/Riz", price: 170, color: "#c7ecee"},
+    { name: "Bounty/Dragibus", price: 50, color: "#81ecec"},
+    { name: "GChoco/Snickers", price: 50, color: "#e17055"},
+    { name: "Caprisun", price: 30, color: "#ffeaa7"},
+    { name: "Monster", price: 120, color: "#cf6a87"},
+    { name: "Cafés", price: 40, color: "#778beb"},
+    { name: "PastaXtrem", price: 370, color: "#f5cd79"},
+    { name: "Nouilles", price: 110, color: "#ea8685"},
 ]
 
 let currentPage = 0;
@@ -24,8 +24,8 @@ const pageElements = [];
 let user = undefined;
 
 const addProduct = async (item, adding) => {
-    const new_dept = await eel.update_debt(user.card_uid, adding ? item.price : -item.price)
-    document.getElementById("assoDebt").innerHTML += new_dept;
+    const new_dept = await eel.update_debt(user.card_uid, adding ? item.price : -item.price)()
+    document.getElementById("assoDebt").innerHTML = getPriceString(new_dept.debt_amount);
 }
 
 window.onload = async () => {
@@ -35,18 +35,15 @@ window.onload = async () => {
     console.log(user)
 
     document.getElementById("assoName").innerHTML = user.first_name || "Admin";
-    document.getElementById("assoDebt").innerHTML += user.debt_amount;
+    document.getElementById("assoDebt").innerHTML = getPriceString(user.debt_amount);
 
     document.getElementById("previousArrow").style = "visibility: hidden;";
     document.getElementById("resetDebt").addEventListener("click", () => {
         alert("Confirmer ?")
     }); // FAUT CHANGER AVEC LA DB DU CON
 
-    // on prends les 6 premieres pour en 
-    // avoir 6 par page
     const pageItems = products.filter((_, i) => i < pageSize);
 
-    // on récupère le container qui vas les accueillir
     const container = document.getElementsByClassName('itemsContainer')[0];
     
     pageItems.forEach((item, index) => {
@@ -55,11 +52,11 @@ window.onload = async () => {
 
         node.innerHTML = `
             <div class="btn" style="padding: 10px 20px;">- </div>
-            <p>${item.name}</p>
+            <p style="color: ${item.color};">${item.name}</p>
             <div class="btn" style="padding: 10px 20px;"> +</div>
         `;
-        node.firstElementChild.addEventListener("click", () => addProduct(pageItems[index], true))
-        node.lastElementChild.addEventListener("click", () => addProduct(pageItems[index], false))
+        node.firstElementChild.addEventListener("click", () => addProduct(pageItems[index], false))
+        node.lastElementChild.addEventListener("click", () => addProduct(pageItems[index], true))
         node.className += "item";
         pageElements.push(node);
     });
@@ -93,11 +90,11 @@ const updateItems = () => {
         if (index < pageItems.length) {
             element.innerHTML = `
                 <div class="btn" style="padding: 10px 20px;">- </div>
-                <p>${pageItems[index].name}</p>
+                <p style="color: ${pageItems[index].color};">${pageItems[index].name}</p>
                 <div class="btn" style="padding: 10px 20px;"> +</div>
             `;
-            element.firstElementChild.addEventListener("click", () => addProduct(pageItems[index], true))
-            element.lastElementChild.addEventListener("click", () => addProduct(pageItems[index], false))
+            element.firstElementChild.addEventListener("click", () => addProduct(pageItems[index], false))
+            element.lastElementChild.addEventListener("click", () => addProduct(pageItems[index], true))
             element.style = "visibility: visible;"
         } else {
             element.style = "visibility: hidden;"

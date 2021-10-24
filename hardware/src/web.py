@@ -62,6 +62,7 @@ def await_card_scan(price):
     else:
         eel.scan_cancel(card_currency, user_id, transaction_status)
 
+
 @eel.expose
 def start_transaction(price):
     log("New transaction started:", price)
@@ -74,12 +75,13 @@ def start_transaction(price):
             loaded_url = eel.get_current_url()()
         except:
             loaded_url = "nfc"
-        if "nfc" not in str(loaded_url) :
+        if "nfc" not in str(loaded_url):
             log("[ CLOSED ] The transaction is closed")
             gevent.kill(async_scan)
             break
         eel.sleep(1)
         log(loaded_url)
+
 
 @eel.expose
 def start_admin_validation():
@@ -91,42 +93,21 @@ def start_admin_validation():
         "card_uid": card_uid
     }
 
+
 @eel.expose
 def get_user(card_uid):
-    log("Retreiving user")
-    try:
-        user = server.get_user(card_uid).json()
-        return user
-    except:
-        log("Error while retreiving user...")
-        return None
+    return server.get_user(card_uid).json()
+
 
 @eel.expose
 def get_stats():
-    log("Retreiving stats")
-    try:
-        stats = server.get_stats().json()
-        return stats
-    except:
-        log("Error while retreiving stats...")
-        return None
+    return server.get_stats().json()
+
 
 @eel.expose
 def get_historic():
-    log("Retreiving historic")
-    try:
-        historic = server.get_historic(5).json()
-        return historic
-    except:
-        log("Error while retreiving historic...")
-        return None
+    return server.get_historic(5).json()
 
 @eel.expose
 def update_debt(card_uid, debt_update_amount):
-    log("Updating dept")
-    try:
-        debt_amount = server.post_debt_amount(card_uid, debt_update_amount).json()
-        return debt_amount
-    except:
-        log("Error while updating dept...")
-        return None
+    return server.post_debt_amount(card_uid, debt_update_amount).json()
