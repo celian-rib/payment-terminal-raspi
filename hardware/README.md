@@ -27,16 +27,17 @@ Os : Raspberry PI OS Lite
 ***
 - ### Clone project (May need ssh key)
     - ```git@github.com:celian-rib/asso-card.git```
+    - Créer fichiher ```.env```
 ***
 - ### Install touch screen driver (This will restart the pi)
-    - ```git clone https://github.com/waveshare/LCD-show.git && ./LCD-show/LCD35B-show-V2```
+    - ```git clone https://github.com/waveshare/LCD-show.git```
+    - ```cd ./LCD-show && ./LCD35-show```
 ***
 - ### Install GUI components 
     [source](https://desertbot.io/blog/raspberry-pi-touchscreen-kiosk-setup)
 
     - ```sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox```
     - ```sudo apt-get install --no-install-recommends chromium-browser```
-
     - En cas d'Erreur avec startx ```sudo mv /usr/share/X11/xorg.conf.d/99-fbturbo.conf ~```
 ***
 - ### Make the project auto start on boot
@@ -44,8 +45,24 @@ Os : Raspberry PI OS Lite
         - System Options > Boot > "Console AutoLogin"
 
     - Edit startup script with : ```sudo nano /etc/xdg/openbox/autostart``` (Executed when GUI drivers are ready)
-        ```
-        TO DO
+        ```bash
+        xset -dpms            # turn off display power management system
+        xset s noblank        # turn off screen blanking
+        xset s off            # turn off screen saver
+        # Remove exit errors from the config files that could trigger a warning
+        sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State'
+        sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
+        # Setup env
+        export FLASK_ENV=production
+        export PROD=True
+        cd ~/asso-card
+        git pull
+        # Start backend app
+        cd ~/asso-card/backend
+        python3 src/app.py & >> ~/backend.log
+        # Start hardware app
+        cd ~/asso-card/hardware/src
+        python3 app.py >> ~/hardware.log
         ```
 ***
 - ### Fresh restart 
