@@ -12,24 +12,44 @@ body {
     flex-direction: column;
 }
 
+body > .divBackArrow {
+    top: 0.2em;
+    left: 0.2em;
+}
+
 .header {
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: 2em;
-    margin-bottom: 1.5em;
+    margin-bottom: 1.2em;
+    background-color: rgb(27, 45, 77);
+    padding-left: 2.5em;
 }
 
 .header > .btn {
     font-size: 10px;
     padding: 10px;
-    width: 30px;
+    width: 80px;
+}
+
+.header > #assoName {
+    font-size: 13px;
 }
 
 .header > h4 {
     padding: 0;
     margin: 0;
+}
+
+.totalPrice {
+    display: flex;
+    align-items: center;
+}
+
+.totalPrice > h4:first-of-type {
+    font-size: 13px;
+    margin-right: 5px;
 }
 
 .itemsContainer .btn {
@@ -39,12 +59,14 @@ body {
 }
 
 #nextArrow {
+    top: 55%;
     position: absolute;
     right: 30px;
     transform: translateX(10px) translateY(25px) rotate(180deg) ;
 }
 
 #previousArrow {
+    top: 55%;
     position: absolute;
     left: 30px;
 }
@@ -58,4 +80,23 @@ body {
 
 .item > div {
     max-width: 10px;
+}
+
+.item > span {
+    flex: 1.3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item > span:last-of-type {
+    flex: 0.7;
+}
+
+.item > span > p {
+    margin: 0;
+}
+
+.item > span > p:last-of-type {
+    font-size: 12px;
 }
