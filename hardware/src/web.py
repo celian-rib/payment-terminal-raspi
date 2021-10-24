@@ -82,6 +82,11 @@ def start_transaction(price):
         eel.sleep(1)
         log(loaded_url)
 
+def start_admin_validation():
+    log("New scan started:")
+    card_data = read_scanner()  # blocking call
+    card_uid = get_uid_string(list(card_data))
+    
 
 @eel.expose
 def get_stats():

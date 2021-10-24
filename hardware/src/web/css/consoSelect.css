@@ -9,8 +9,27 @@ body {
     width: 80%;
     display: flex;
     align-items: center;
+    flex-direction: column;
+}
+
+.header {
+    width: 80%;
+    display: flex;
     justify-content: space-evenly;
-    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 2em;
+    margin-bottom: 1.5em;
+}
+
+.header > .btn {
+    font-size: 10px;
+    padding: 10px;
+    width: 30px;
+}
+
+.header > h4 {
+    padding: 0;
+    margin: 0;
 }
 
 .itemsContainer .btn {
@@ -28,4 +47,15 @@ body {
 #previousArrow {
     position: absolute;
     left: 30px;
+}
+
+.item {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item > div {
+    max-width: 10px;
 }

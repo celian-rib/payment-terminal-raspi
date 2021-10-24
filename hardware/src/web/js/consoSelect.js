@@ -19,11 +19,22 @@ const products = [
 ]
 
 let currentPage = 0;
-const pageSize = 6;
+const pageSize = 4;
 const pageElements = []
 
+const addProduct = (item, adding) => {
+    if(!adding)
+        console.log(item.name, item.price);
+    else
+        console.log(item.name, -item.price);
+}
+
 window.onload = () => {
-    document.getElementById("previousArrow").style = "visibility: visible;";
+    document.getElementById("previousArrow").style = "visibility: hidden;";
+
+    document.getElementById("resetDebt").addEventListener("click", () => {
+        alert("Confirmer ?")
+    }); // FAUT CHANGER AVEC LA DB DU CON
 
     // on prends les 6 premieres pour en 
     // avoir 6 par page
@@ -32,16 +43,18 @@ window.onload = () => {
     // on récupère le container qui vas les accueillir
     const container = document.getElementsByClassName('itemsContainer')[0];
     
-    // elements de la premiere page
-    pageItems.forEach(item => {
-        // on le transforme en div
+    pageItems.forEach((item, index) => {
         const node = document.createElement("div");
-        // on l'ajoute au container
         container.append(node);
-        // on lui donne le nom de l'élément
-        node.innerHTML = item.name;
-        // on le caste en bouton
-        node.className += "btn";
+
+        node.innerHTML = `
+            <div class="btn" style="padding: 10px 20px;">- </div>
+            <p>${item.name}</p>
+            <div class="btn" style="padding: 10px 20px;"> +</div>
+        `;
+        node.firstElementChild.addEventListener("click", () => addProduct(pageItems[index], true))
+        node.lastElementChild.addEventListener("click", () => addProduct(pageItems[index], false))
+        node.className += "item";
         pageElements.push(node);
     });
 }
@@ -50,7 +63,7 @@ document.getElementById("nextArrow").addEventListener("click", () => {
     document.getElementById("previousArrow").style = "visibility: visible;";
 
     currentPage += 1;
-    if (currentPage > products.length / pageSize - 1)
+    if (currentPage > products.length / pageSize - 2)
         document.getElementById("nextArrow").style = "visibility: hidden;";
     if (currentPage > products.length / pageSize) {
         currentPage = products.length / pageSize;
@@ -61,7 +74,7 @@ document.getElementById("nextArrow").addEventListener("click", () => {
 document.getElementById("previousArrow").addEventListener("click", () => {
     currentPage -= 1;
     document.getElementById("nextArrow").style = "visibility: visible;"
-    if (currentPage = 0)
+    if (currentPage == 0)
         document.getElementById("previousArrow").style = "visibility: hidden;";
     if(currentPage < 0)
         currentPage = 0;
@@ -69,13 +82,20 @@ document.getElementById("previousArrow").addEventListener("click", () => {
 })
 
 const updateItems = () => {
-    const pageItems = products.filter((_, i) => i > currentPage * pageSize && i <= (currentPage * pageSize) + pageSize);
+    const pageItems = products.filter((_, i) => i >= currentPage * pageSize && i <= (currentPage * pageSize) + pageSize);
     pageElements.forEach((element, index) => {
         if (index < pageItems.length) {
-            element.innerHTML = pageItems[index].name;
+            element.innerHTML = `
+                <div class="btn" style="padding: 10px 20px;">- </div>
+                <p>${pageItems[index].name}</p>
+                <div class="btn" style="padding: 10px 20px;"> +</div>
+            `;
+            element.firstElementChild.addEventListener("click", () => addProduct(pageItems[index], true))
+            element.lastElementChild.addEventListener("click", () => addProduct(pageItems[index], false))
             element.style = "visibility: visible;"
         } else {
             element.style = "visibility: hidden;"
         }
     })
 }
+

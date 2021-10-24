@@ -5,10 +5,10 @@ const router = {
 	'goToNfc': '/pages/nfc.html',
 	'goToUnvalidTransac': '/pages/unvalidTransac.html',
 	'goToValidTransac': '/pages/validTransac.html',
-	'goToAdmin': '/pages/admin.html',
+	'goToAdmin': '/pages/nfc.html?target=/pages/admin.html',
 	'goToStats': '/pages/stats.html',
 	'goToHisto': '/pages/histo.html',
-	'goToAsso': '/pages/consoAsso.html',
+	'goToSelect': '/pages/nfc.html?target=/pages/consoSelect.html',
 };
 
 /**

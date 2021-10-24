@@ -22,3 +22,9 @@ def get_stats():
 
 def get_historic(count):
     return requests.get(url=BACKEND_URL + "/api/scans/" + str(count), headers=HEADERS)
+
+def user_is_admin(card_uid):
+    response = requests.get(url=BACKEND_URL + "/api/user/card_uid/" + str(card_uid), headers=HEADERS)
+    print(response.json())
+
+user_is_admin(75113683274751461701049712861171191292128)

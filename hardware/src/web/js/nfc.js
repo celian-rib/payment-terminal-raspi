@@ -59,11 +59,14 @@ function scan_cancel(money, userID, reason) {
 window.onload = function() {
 	// Retreive price from url
 	const urlData = parseURLParams(window.location.href);
-	price = Object.keys(urlData)[0];
-	priceText.innerHTML = (price > 0 ? '+' : '') + getPriceString(price);
-
-	// Start transaction on python side
-	eel.start_transaction(price);
-
+	if(Object.keys(urlData)[0] == "target"){
+		document.getElementById("priceText").innerHTML = "Scanner carte";
+		document.getElementById("priceText").style = "font-size: 30px; letter-spacing: 2px;"
+	} else{
+		price = Object.keys(urlData)[0];
+		priceText.innerHTML = (price > 0 ? '+' : '') + getPriceString(price);
+		// Start transaction on python side
+		eel.start_transaction(price);
+	}
 	textAnimation();
 };
