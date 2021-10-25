@@ -4,6 +4,7 @@ from sqlalchemy_serializer import SerializerMixin
 from database.database import Base
 from .public_data_filter import PublicDataFilter
 
+
 class Product(Base, SerializerMixin, PublicDataFilter):
     __tablename__ = 'products'
     product_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -17,8 +18,6 @@ class Product(Base, SerializerMixin, PublicDataFilter):
         self.asso_price = asso_price
         self.color = color
 
-    def __repr__(self):
-        return f'<Product {self.name!r}>'
 
 class UserProductAssociation(Base, SerializerMixin, PublicDataFilter):
     __tablename__ = 'users_products'
@@ -26,7 +25,3 @@ class UserProductAssociation(Base, SerializerMixin, PublicDataFilter):
     product_id = Column(Integer, ForeignKey('products.product_id'), primary_key=True)
     count = Column(Integer, default=0)
     product = relationship(Product)
-
-    def __repr__(self):
-        return str(self.to_dict())
-

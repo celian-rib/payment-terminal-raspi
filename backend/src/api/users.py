@@ -34,9 +34,6 @@ USER_UPDATE_PARAMS = ns.model('Updating user parameter', {
     "email": fields.String(required=True)
 })
 
-USER_DEPT_UPDATE_PARAMS = ns.model('Updating user dept', {
-    "debt_update_amount": fields.Integer(required=True)
-})
 
 @ns.route('/user/card_uid/<card_uid>')
 class SingleUserCardUID(Resource):
@@ -50,8 +47,8 @@ class SingleUserCardUID(Resource):
                 user = user.to_dict()
 
         abort_if_doesnt_exist(
-            user, 
-            code=400, 
+            user,
+            code=400,
             message="No user found with this card id"
         )
 
@@ -60,12 +57,12 @@ class SingleUserCardUID(Resource):
     @ns.expect(USER_UPDATE_PARAMS, validate=True)
     @authentification_required
     def put(self, card_uid, **kwargs):
-        name=str(ns.payload["name"])
-        first_name=str(ns.payload["firstName"])
-        email=str(ns.payload["email"])
+        name = str(ns.payload["name"])
+        first_name = str(ns.payload["firstName"])
+        email = str(ns.payload["email"])
 
         abort_if_doesnt_exist(
-            name, 
+            name,
             first_name,
             email,
             message="Server could not get parameters properly",
@@ -81,20 +78,5 @@ class SingleUserCardUID(Resource):
             user.first_name = first_name
             user.email = email
             db.commit()
-        
+
         return True
-
-    @ns.expect(USER_DEPT_UPDATE_PARAMS, validate=True)
-    @authentification_required
-    def post(self, card_uid, **kwargs):
-        debt_amount = None;
-        dept_update_amount = int(ns.payload["debt_update_amount"])
-        with Database(auto_commit=True) as db:
-            user = db.query(User).filter_by(card_uid=card_uid).first()
-            abort_if_doesnt_exist(user, code=400, message="No user found with this card id")
-
-            user.debt_amount += dept_update_amount
-            debt_amount = user.debt_amount;
-        return {
-            "debt_amount": debt_amount
-        };

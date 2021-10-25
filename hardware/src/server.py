@@ -1,6 +1,6 @@
 
 import os
-
+import eel
 import os
 import requests
 
@@ -21,51 +21,66 @@ def send_scan(card_uid, transaction_value):
     return requests.post(url=BACKEND_URL + "/api/scan", headers=HEADERS, json=payload)
 
 
-def get_stats():
-    try:
-        return requests.get(url=BACKEND_URL + "/api/stats", headers=HEADERS)
-    except:
-        log("Error while retreiving stats...")
-        return None
-
-
-def get_historic(count):
-    try:
-        return requests.get(url=BACKEND_URL + "/api/scans/" + str(count), headers=HEADERS)
-    except:
-        log("Error while retreiving historic...")
-        return None
-
-def get_products():
-    try:
-        return requests.get(url=BACKEND_URL + "/api/products" , headers=HEADERS)
-    except:
-        log("Error while retreiving products...")
-        return None
-
-def add_or_remove_user_product(card_uid, product_id, adding):
-    payload = {
-        'product_id': product_id,
-        'adding': adding
-    }
-    requests.put(url=BACKEND_URL + "/api/products/user/" + str(card_uid), headers=HEADERS, json=payload)
-
 def user_is_admin(card_uid):
     try:
-        response = requests.get(
-            url=BACKEND_URL + "/api/user/card_uid/" + str(card_uid), headers=HEADERS)
+        response = requests.get(url=BACKEND_URL + "/api/user/card_uid/" + str(card_uid), headers=HEADERS)
         return response.json()["admin"]
-    except:
-        log("Error while retreiving user...")
+    except Exception as e:
+        log("Error while retreiving user adminity...", e)
         return None
 
 
+@eel.expose
+def get_stats():
+    try:
+        return requests.get(url=BACKEND_URL + "/api/stats", headers=HEADERS).json()
+    except Exception as e:
+        log("Error while retreiving stats...", e)
+        return None
+
+
+@eel.expose
+def get_historic():
+    try:
+        return requests.get(url=BACKEND_URL + "/api/scans/" + str(5), headers=HEADERS).json()
+    except Exception as e:
+        log("Error while retreiving historic...", e)
+        return None
+
+
+@eel.expose
+def get_products():
+    try:
+        return requests.get(url=BACKEND_URL + "/api/products", headers=HEADERS).json()
+    except Exception as e:
+        log("Error while retreiving products...", e)
+        return None
+
+
+@eel.expose
+def add_or_remove_user_product(card_uid, product_id, adding):
+    try:
+        payload = {
+            'product_id': product_id,
+            'adding': adding
+        }
+        requests.put(url=BACKEND_URL + "/api/products/user/" + str(card_uid), headers=HEADERS, json=payload)
+    except Exception as e:
+        log("Error while editing user products...", e)
+
+
+@eel.expose
 def get_user(card_uid):
     try:
-        return requests.get(url=BACKEND_URL + "/api/user/card_uid/" + str(card_uid), headers=HEADERS)
-    except:
-        log("Error while retreiving user...")
+        return requests.get(url=BACKEND_URL + "/api/user/card_uid/" + str(card_uid), headers=HEADERS).json()
+    except Exception as e:
+        log("Error while retreiving user...", e)
         return None
 
+
+@eel.expose
 def delete_all_user_products(card_uid):
-    requests.delete(url=BACKEND_URL + "/api/products/user/" + str(card_uid), headers=HEADERS)
+    try:
+        requests.delete(url=BACKEND_URL + "/api/products/user/" + str(card_uid), headers=HEADERS)
+    except Exception as e:
+        log("Error while deleting all user products...", e)

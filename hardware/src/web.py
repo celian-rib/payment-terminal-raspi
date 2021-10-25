@@ -92,30 +92,3 @@ def start_admin_validation():
         "admin": server.user_is_admin(card_uid),
         "card_uid": card_uid
     }
-
-
-@eel.expose
-def get_user(card_uid):
-    return server.get_user(card_uid).json()
-
-
-@eel.expose
-def get_stats():
-    return server.get_stats().json()
-
-
-@eel.expose
-def get_historic():
-    return server.get_historic(5).json()
-
-@eel.expose
-def get_products():
-    return server.get_products().json()
-
-@eel.expose
-def add_or_remove_user_product(card_uid, product_id, adding):
-    server.add_or_remove_user_product(card_uid, product_id, adding)
-
-@eel.expose
-def delete_all_user_products(card_uid):
-    return server.delete_all_user_products(card_uid)

@@ -54,7 +54,6 @@ function prompt_alerts(description) {
 
 
 eel.expose(get_current_url);
-
 /**
  * Fonction permettant de récupérer l'url de la page courante
  * 
@@ -68,6 +67,7 @@ function get_current_url() {
  * Permet de récupérer les données stockées dans ue url donnée
  * @param url a parser
  * @return objet contenant les parmètre d'url
+ * @deprecated UTILISER URLSearchParams de javascript
  */
 function parseURLParams(url) {
 	var queryStart = url.indexOf('?') + 1,
@@ -107,9 +107,43 @@ function getPriceString(price) {
 	}
 }
 
+/**
+ * Affiche une popup en plein ecran avec deux bouton
+ * Un bouton annuler
+ * Un bouton avec un message custom
+ * @param message message custom a afficher
+ * @returns promesse qui renvoie vraie si le bouton custom a été cliqué, sinon faux
+ */
+const showPopup = async (message) => {
+	return new Promise((resolve) => {
+		const container = document.getElementsByTagName("body")[0];
+		const node = document.createElement("div");
+		node.className = "modal";
+
+		node.innerHTML = `
+            <div class="btn outline">${message}</div>
+            <div class="btn blue">Annuler</div>
+        `;
+
+		container.append(node);
+		pageElements.push(node);
+		node.firstElementChild.addEventListener("click", () => {
+			resolve(true);
+			node.remove();
+		})
+		node.lastElementChild.addEventListener("click", () => {
+			resolve(false);
+			node.remove();
+		})
+	});
+}
+
+
+// ======================= LOAD ROUTER ==========================
 for (let route of Object.keys(router)) {
 	const element = document.getElementById(route);
 	if (element == null)
 		continue;
 	element.addEventListener('click', () => goTo(router[route]));
 }
+// ======================= LOAD ROUTER ==========================

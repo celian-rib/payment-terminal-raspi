@@ -4,19 +4,20 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-if os.environ.get('PROD') == None :
+if os.environ.get('PROD') == None:
     engine = create_engine('sqlite:///db/dev.sqlite3')
-else :
+else:
     engine = create_engine('sqlite:///db/prod.sqlite3')
 
 _SessionFactory = scoped_session(sessionmaker(bind=engine))
 
 db = scoped_session(sessionmaker(autocommit=False,
-                                         autoflush=False,
-                                         bind=engine))
+                                 autoflush=False,
+                                 bind=engine))
 
 Base = declarative_base()
 Base.query = db.query_property()
+
 
 def init_db():
     # import all modules here that might define models so that
@@ -26,6 +27,7 @@ def init_db():
     import database.user
     import database.product
     Base.metadata.create_all(bind=engine)
+
 
 class Database():
     @staticmethod
@@ -47,6 +49,7 @@ class Database():
             self.session_factory.commit()
         self.session_factory.flush()
         self.session_factory.close()
+
 
 def session_factory():
     return _SessionFactory()

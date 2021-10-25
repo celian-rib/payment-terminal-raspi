@@ -5,6 +5,7 @@ from database.database import Base
 from datetime import datetime
 from .public_data_filter import PublicDataFilter
 
+
 class Scan(Base, SerializerMixin, PublicDataFilter):
     __tablename__ = 'scans'
     id = Column(Integer, primary_key=True)
@@ -17,6 +18,3 @@ class Scan(Base, SerializerMixin, PublicDataFilter):
         self.card_uid = card_uid
         self.currency_amount = currency_amount
         self.transaction_status = transaction_status
-
-    def __repr__(self):
-        return f'<User {self.name!r}>'
