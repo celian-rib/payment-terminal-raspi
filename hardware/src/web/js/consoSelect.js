@@ -1,34 +1,7 @@
-const products = [
-    { name: "Boisson", price: 60, color: "#f6e58d" },
-    { name: "Twix", price: 40, color: "#55efc4" },
-    { name: "Bueno", price: 70, color: "#c7ecee" },
-    { name: "Smarties", price: 60, color: "#686de0" },
-    { name: "PastaBox", price: 220, color: "#fab1a0" },
-    { name: "Riz", price: 170, color: "#c7ecee" },
-    { name: "Sandwich", price: 170, color: "#c7ecee" },
-    { name: "Cafés", price: 40, color: "#778beb" },
-    { name: "Lion", price: 40, color: "#ffbe76" },
-    { name: "Gauffre Sucre", price: 40, color: "#ffbe76" },
-    { name: "Gauffre Choco", price: 50, color: "#e17055" },
-    { name: "Bounty", price: 50, color: "#81ecec" },
-    { name: "Snickers", price: 50, color: "#e17055" },
-    { name: "Chips", price: 70, color: "#c7ecee" },
-    { name: "Monster", price: 120, color: "#cf6a87" },
-    { name: "PomPote", price: 40, color: "#55efc4" },
-    { name: "Bready", price: 70, color: "#c7ecee" },
-    { name: "Nestle", price: 60, color: "#f9ca24" },
-    { name: "Crunch", price: 60, color: "#a29bfe" },
-    { name: "KitKat", price: 60, color: "#a29bfe" },
-    { name: "M&Ms", price: 60, color: "#a29bfe" },
-    { name: "Dragibus", price: 50, color: "#81ecec" },
-    { name: "Caprisun", price: 30, color: "#ffeaa7" },
-    { name: "PastaXtrem", price: 370, color: "#f5cd79" },
-    { name: "Nouilles", price: 110, color: "#ea8685" },
-]
-
-let currentPage = 0;
 const pageSize = 4;
 const pageElements = [];
+let products = []
+let currentPage = 0;
 let user = undefined;
 
 const showPopup = async (message) => {
@@ -55,28 +28,39 @@ const showPopup = async (message) => {
     });
 }
 
-const addProduct = async (item, adding) => {
-    if (!adding) {
-        const validate = await showPopup("Enlever ce produit des produits consommés ?")
-        if (!validate)
-            return;
-    }
-    if (user.products[item.name] == undefined)
-        user.products[item.name] = 0;
-    user.products[item.name] += adding ? 1 : -1;
-    if (user.products[item.name] < 0)
-        user.products[item.name] = 0;
-    const new_dept = await eel.update_debt(user.card_uid, adding ? item.price : -item.price)()
-    document.getElementById("assoDebt").innerHTML = getPriceString(new_dept.debt_amount);
+const getDeptAmount = () => {
+    let val = 0;
+    user.products.forEach(p => {
+        val += p.count * p.product.asso_price;
+    })
+    return val;
+}
+
+const addProduct = async (item) => {
+    await eel.add_or_remove_user_product(user.card_uid, item.product_id, true)();
+    await loadUser();
     updateItems();
+}
+
+const removeProduct = async (item) => {
+    const validate = await showPopup("Enlever ce produit des produits consommés ?")
+    if (!validate)
+        return;
+    await eel.add_or_remove_user_product(user.card_uid, item.product_id, false)();
+    await loadUser();
+    updateItems();
+}
+
+const loadProducts = async () => {
+    products = await eel.get_products()()
+    console.log("Producst loaded", products); 
 }
 
 const loadUser = async () => {
     const cardUid = new URLSearchParams(window.location.search).get("cardUid");
     user = await eel.get_user(cardUid)()
-    user.products = {}
+    console.log("User loaded", user); 
     document.getElementById("assoName").innerHTML = user.first_name || "Admin";
-    document.getElementById("assoDebt").innerHTML = getPriceString(user.debt_amount);
 }
 
 const updateItems = () => {
@@ -86,32 +70,30 @@ const updateItems = () => {
             element.style = "visibility: hidden;"
             return;
         }
-        console.log(JSON.stringify(user.products, null, 2))
-        itemCountForUser = user.products[pageItems[index].name] ?? 0;
+        itemCountForUser = user.products.find(p => p.product.product_id == pageItems[index].product_id)?.count ?? 0;
         element.innerHTML = `
             <div class="btn" style='padding: 10px 20px; ${itemCountForUser > 0 ? "opacity: 1;" : "opacity: 0;"}'>- </div>
             <span>
                 <p style="color: ${pageItems[index].color};">${pageItems[index].name}</p>
-                <p>${getPriceString(pageItems[index].price)}</p>
+                <p>${getPriceString(pageItems[index].asso_price)}</p>
             </span>
             <span>
-                <p style="color: ${pageItems[index].color};">nb : ${itemCountForUser}</p>
+                <p style="color: ${pageItems[index].color};">qte : ${itemCountForUser}</p>
             </span>
             <div class="btn" style="padding: 10px 20px;"> +</div>
         `;
-        element.firstElementChild.addEventListener("click", () => addProduct(pageItems[index], false))
-        element.lastElementChild.addEventListener("click", () => addProduct(pageItems[index], true))
+        element.firstElementChild.addEventListener("click", () => removeProduct(pageItems[index]))
+        element.lastElementChild.addEventListener("click", () => addProduct(pageItems[index]))
         element.style = "visibility: visible;"
-    })
+    });
+    document.getElementById("assoDebt").innerHTML = getPriceString(getDeptAmount());
 }
 
 window.onload = async () => {
+    await loadProducts();
     await loadUser();
-    document.getElementById("previousArrow").style = "visibility: hidden;";
-    document.getElementById("resetDebt").addEventListener("click", () => {
-        showPopup(`Je confirme avoir remboursé ${getPriceString(user.debt_amount)}`)
-    });
 
+    // Setup all page elements (4 items per pages)
     const container = document.getElementsByClassName('itemsContainer')[0];
     for (let i = 0; i < pageSize; i++) {
         const node = document.createElement("div");
@@ -119,8 +101,19 @@ window.onload = async () => {
         container.append(node);
         pageElements.push(node);
     }
+
     updateItems();
 }
+
+document.getElementById("previousArrow").style = "visibility: hidden;";
+document.getElementById("resetDebt").addEventListener("click", async () => {
+    const del = await showPopup(`Je confirme avoir remboursé ${getPriceString(user.debt_amount)}`)
+    if (del) {
+        await eel.delete_all_user_products(user.card_uid)()
+        await loadUser();
+        updateItems();
+    }
+});
 
 document.getElementById("nextArrow").addEventListener("click", () => {
     document.getElementById("previousArrow").style = "visibility: visible;";

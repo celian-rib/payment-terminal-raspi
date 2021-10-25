@@ -24,6 +24,7 @@ def init_db():
     # you will have to import them first before calling init_db()
     import database.scan
     import database.user
+    import database.product
     Base.metadata.create_all(bind=engine)
 
 class Database():

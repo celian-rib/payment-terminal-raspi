@@ -1,5 +1,7 @@
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.sql.sqltypes import DateTime, Float
+from sqlalchemy import Column, Integer, String, Table, ForeignKey
+from sqlalchemy.sql.sqltypes import DateTime
+from sqlalchemy.orm import relationship
+from .product import Product, UserProductAssociation
 from database.database import Base
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
@@ -16,7 +18,8 @@ class User(Base, SerializerMixin, PublicDataFilter):
     first_name = Column(String, default=None)
     email = Column(String, default=None)
     admin = Column(Integer, default=False)
-    debt_amount = Column(Integer, default=0)
+    products = relationship(UserProductAssociation)
+
 
     def __init__(self, card_uid, currency_amount):
         self.card_uid = card_uid

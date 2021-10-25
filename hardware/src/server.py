@@ -36,6 +36,19 @@ def get_historic(count):
         log("Error while retreiving historic...")
         return None
 
+def get_products():
+    try:
+        return requests.get(url=BACKEND_URL + "/api/products" , headers=HEADERS)
+    except:
+        log("Error while retreiving products...")
+        return None
+
+def add_or_remove_user_product(card_uid, product_id, adding):
+    payload = {
+        'product_id': product_id,
+        'adding': adding
+    }
+    requests.put(url=BACKEND_URL + "/api/products/user/" + str(card_uid), headers=HEADERS, json=payload)
 
 def user_is_admin(card_uid):
     try:
@@ -54,13 +67,5 @@ def get_user(card_uid):
         log("Error while retreiving user...")
         return None
 
-
-def post_debt_amount(card_uid, debt_update_amount):
-    payload = {
-        'debt_update_amount': debt_update_amount
-    }
-    try:
-        return requests.post(url=BACKEND_URL + "/api/user/card_uid/" + str(card_uid), json=payload, headers=HEADERS)
-    except:
-        print("Error while sendinf dept...")
-        return None
+def delete_all_user_products(card_uid):
+    requests.delete(url=BACKEND_URL + "/api/products/user/" + str(card_uid), headers=HEADERS)

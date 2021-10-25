@@ -109,5 +109,13 @@ def get_historic():
     return server.get_historic(5).json()
 
 @eel.expose
-def update_debt(card_uid, debt_update_amount):
-    return server.post_debt_amount(card_uid, debt_update_amount).json()
+def get_products():
+    return server.get_products().json()
+
+@eel.expose
+def add_or_remove_user_product(card_uid, product_id, adding):
+    server.add_or_remove_user_product(card_uid, product_id, adding)
+
+@eel.expose
+def delete_all_user_products(card_uid):
+    return server.delete_all_user_products(card_uid)
