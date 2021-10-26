@@ -8,7 +8,7 @@
 
 .priceSelection .btn {
     padding: 15px;
-    max-width: 10%;
+    max-width: 65px;
 }
 
 p {
@@ -16,6 +16,12 @@ p {
     font-weight: 600;
     color: white;
     margin-top: 0;
+}
+
+#value {
+    font-size: 20px;
+    margin-bottom: 5px;
+    transform: translateY(-14px);
 }
 
 .footContain {

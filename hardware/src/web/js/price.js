@@ -3,7 +3,7 @@ var dynamic_visibility_buttons = [];
 
 var checkDynamicButtonsVisibility = () => {
 	dynamic_visibility_buttons.forEach(b => {
-		let value = parseInt(parseFloat(b.innerHTML) * 100)
+		let value = parseInt(parseFloat(b.innerHTML.replace(/\s/g, '')) * 100)
 		if (value == 0) value -= 1;
 		b.style = `visibility: ${price + value >= 0 ? "visible" : "hidden"};`;
 	})
@@ -17,7 +17,7 @@ window.onload = function () {
 	const priceText = document.getElementById('value');
 
 	for (let i = 0; i < buttonScans.length; i++) {
-		let value = parseInt(parseFloat(buttonScans[i].innerHTML) * 100)
+		let value = parseInt(parseFloat(buttonScans[i].innerHTML.replace(/\s/g, '')) * 100)
 		if (value <= 0)
 			dynamic_visibility_buttons.push(buttonScans[i])
 		buttonScans[i].addEventListener('click', () => {
