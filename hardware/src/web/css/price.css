@@ -9,6 +9,8 @@
 .priceSelection .btn {
     padding: 15px;
     max-width: 65px;
+    font-size: 17px;
+    white-space: nowrap;
 }
 
 p {
