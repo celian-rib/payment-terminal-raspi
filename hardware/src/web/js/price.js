@@ -1,15 +1,25 @@
+var price = 0;
+var dynamic_visibility_buttons = [];
+
+var checkDynamicButtonsVisibility = () => {
+	dynamic_visibility_buttons.forEach(b => {
+		let value = parseInt(parseFloat(b.innerHTML) * 100)
+		if (value == 0) value -= 1;
+		b.style = `visibility: ${price + value >= 0 ? "visible" : "hidden"};`;
+	})
+}
+
 /**
  * Fonction appellée lorsque la page est entièrement chargée
  */
 window.onload = function () {
-	let price = 0;
-
 	const buttonScans = document.getElementsByClassName('btnPrice');
-
 	const priceText = document.getElementById('value');
 
 	for (let i = 0; i < buttonScans.length; i++) {
 		let value = parseInt(parseFloat(buttonScans[i].innerHTML) * 100)
+		if (value <= 0)
+			dynamic_visibility_buttons.push(buttonScans[i])
 		buttonScans[i].addEventListener('click', () => {
 			if (value == 0)
 				price = 0;
@@ -17,14 +27,17 @@ window.onload = function () {
 			if (price < 0)
 				price = 0;
 			priceText.innerHTML = getPriceString(price);
+			checkDynamicButtonsVisibility();
 		})
 	}
-	if (document.getElementById('ajout'))
-		document
-			.getElementById('ajout')
-			.addEventListener('click', () => goToWithParam('goToNfc', '?' + price), false);
-	if (document.getElementById('debit'))
-		document
-			.getElementById('debit')
-			.addEventListener('click', () => goToWithParam('goToNfc', '?' + -price), false);
+
+	const btnAjout = document.getElementById('ajout');
+	if (btnAjout)
+		btnAjout.addEventListener('click', () => goToWithParam('goToNfc', '?' + price), false);
+
+	const btnDebit = document.getElementById('debit');
+	if (btnDebit)
+		btnDebit.addEventListener('click', () => goToWithParam('goToNfc', '?' + -price), false);
+
+	checkDynamicButtonsVisibility();
 };

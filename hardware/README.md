@@ -27,7 +27,11 @@ Os : Raspberry PI OS Lite
 ***
 - ### Clone project (May need ssh key)
     - ```git@github.com:celian-rib/asso-card.git```
-    - Créer fichiher ```.env```
+
+- ### Project config
+    - Create ```.env``` file (See project root ../README.md)
+    - Connect at least once over ssh to the backup server **to had it in known hosts**
+
 ***
 - ### Install touch screen driver (This will restart the pi)
     - ```git clone https://github.com/waveshare/LCD-show.git```
