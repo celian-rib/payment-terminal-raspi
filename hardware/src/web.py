@@ -25,7 +25,7 @@ def get_uid_string(byte_list) -> str:
 def read_scanner():
     if not pn532:
         # artificial scan
-        delay = 5
+        delay = 2
         log("[ non-pi development server detected ]")
         log("[ SIMULATING SCAN IN", delay, "SEC]")
         eel.sleep(delay)
@@ -62,6 +62,7 @@ def await_card_scan(price):
     else:
         eel.scan_cancel(card_currency, user_id, transaction_status)
 
+
 @eel.expose
 def start_transaction(price):
     log("New transaction started:", price)
@@ -74,7 +75,7 @@ def start_transaction(price):
             loaded_url = eel.get_current_url()()
         except:
             loaded_url = "nfc"
-        if "nfc" not in str(loaded_url) :
+        if "nfc" not in str(loaded_url):
             log("[ CLOSED ] The transaction is closed")
             gevent.kill(async_scan)
             break
@@ -83,21 +84,11 @@ def start_transaction(price):
 
 
 @eel.expose
-def get_stats():
-    log("Retreiving stats")
-    try:
-        stats = server.get_stats().json()
-        return stats
-    except:
-        log("Error while retreiving stats...")
-        return None
-
-@eel.expose
-def get_historic():
-    log("Retreiving historic")
-    try:
-        historic = server.get_historic(5).json()
-        return historic
-    except:
-        log("Error while retreiving historic...")
-        return None
+def start_admin_validation():
+    log("New scan started for admin validation:")
+    card_data = read_scanner()  # blocking call
+    card_uid = get_uid_string(list(card_data))
+    return {
+        "admin": server.user_is_admin(card_uid),
+        "card_uid": card_uid
+    }
