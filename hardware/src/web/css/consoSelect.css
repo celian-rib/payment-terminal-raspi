@@ -59,20 +59,30 @@ body > .divBackArrow {
 }
 
 #nextArrow {
-    top: 55%;
+    top: calc(50% - 1em);
     position: absolute;
     right: 30px;
-    transform: translateX(10px) translateY(25px) rotate(180deg) ;
+    transform: translateX(10px) translateY(25px) rotate(180deg);
+    height: 2.5em;
+    width: 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #previousArrow {
-    top: 55%;
+    top: 52%;
     position: absolute;
     left: 30px;
+    height: 2.5em;
+    width: 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .item {
-    width: 90%;
+    width: 95%;
     display: flex;
     align-items: center;
     justify-content: space-between;
