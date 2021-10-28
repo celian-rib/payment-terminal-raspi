@@ -58,7 +58,7 @@ const handleAdminValidation = async (urlData) => {
 	document.getElementById("priceText").style = "font-size: 30px; letter-spacing: 2px;"
 	result = await eel.start_admin_validation()()
 
-	if (result.admin)
+	if (result.admin && result.card_uid != undefined)
 		goTo(`${urlData.target[0]}?cardUid=${result.card_uid}`);
 	else
 		goTo("/index.html");

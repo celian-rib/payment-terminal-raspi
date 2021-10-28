@@ -23,8 +23,13 @@ let user = undefined;
  * Charge tous les produits en vente
  */
 const loadProducts = async () => {
-    products = await eel.get_products()()
-    console.log("Producst loaded", products);
+    try {
+        products = await eel.get_products()()
+        console.log("Products loaded", products);
+    } catch (e) {
+        console.error(e);
+        goTo();
+    }
 }
 
 /**
@@ -43,9 +48,14 @@ const getDeptAmount = () => {
  * @param product 
  */
 const addProduct = async (product) => {
-    await eel.add_or_remove_user_product(user.card_uid, product.product_id, true)();
-    await refreshUserData();
-    updateCurrentPageProducts();
+    try {
+        await eel.add_or_remove_user_product(user.card_uid, product.product_id, true)();
+        await refreshUserData();
+        updateCurrentPageProducts();
+    } catch (e) {
+        console.error(e);
+        goTo();
+    }
 }
 
 /**
@@ -53,22 +63,32 @@ const addProduct = async (product) => {
  * @param product 
  */
 const removeProduct = async (product) => {
-    const validate = await showPopup("Enlever ce produit des produits consommés ?")
-    if (!validate)
-        return;
-    await eel.add_or_remove_user_product(user.card_uid, product.product_id, false)();
-    await refreshUserData();
-    updateCurrentPageProducts();
+    try {
+        const validate = await showPopup("Enlever ce produit des produits consommés ?")
+        if (!validate)
+            return;
+        await eel.add_or_remove_user_product(user.card_uid, product.product_id, false)();
+        await refreshUserData();
+        updateCurrentPageProducts();
+    } catch (e) {
+        console.error(e);
+        goTo();
+    }
 }
 
 /**
  * Met à jour l'entièreté des données de l'utilisateur
  */
 const refreshUserData = async () => {
-    const cardUid = new URLSearchParams(window.location.search).get("cardUid");
-    user = await eel.get_user(cardUid)()
-    console.log("User loaded", user);
-    document.getElementById("assoName").innerHTML = user.first_name || "Admin";
+    try {
+        const cardUid = new URLSearchParams(window.location.search).get("cardUid");
+        user = await eel.get_user(cardUid)()
+        console.log("User loaded", user);
+        document.getElementById("assoName").innerHTML = user.first_name || "Admin";
+    } catch (e) {
+        console.error(e);
+        goTo();
+    }
 }
 
 /**

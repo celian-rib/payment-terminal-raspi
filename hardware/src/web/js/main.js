@@ -17,7 +17,7 @@ const router = {
  * Change la page courante sur une url donnée
  * @param url url a charger
  */
-function goTo(url) {
+function goTo(url = router["goToHome"]) {
 	if (window.location.href.includes('raspberry'))
 		window.location.replace(url + '?raspberry=true');
 	else
