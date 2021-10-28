@@ -18,7 +18,7 @@ const router = {
  * @param url url a charger
  */
 function goTo(url = router["goToHome"]) {
-	if (window.location.href.includes('?raspberry'))
+	if (window.location.search.includes('raspberry'))
 		window.location.replace(`${url}${url.includes('?') ? '&' : '?'}raspberry=true`);
 	else
 		window.location.replace(url);

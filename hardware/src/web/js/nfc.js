@@ -61,7 +61,7 @@ const handleAdminValidation = async (urlData) => {
 	if (result.admin && result.card_uid != undefined)
 		goTo(`${urlData.target[0]}?cardUid=${result.card_uid}`);
 	else
-		goTo("/index.html");
+		goTo();
 }
 
 const handleTransaction = (urlData) => {
@@ -77,11 +77,11 @@ const handleTransaction = (urlData) => {
 window.onload = async () => {
 	textAnimation();
 	const urlData = parseURLParams(window.location.href);
-	if (Object.keys(urlData)[0] == "target")
+	if (Object.keys(urlData).includes("target")) {
 		handleAdminValidation(urlData);
-	else
+	} else {
 		handleTransaction(urlData);
+		if (urlData['raspberry'] != undefined)
+			document.getElementsByTagName('html')[0].style = 'transform: rotate(180deg);'
+	}
 };
-
-if (parseURLParams(window.location.href)['raspberry'] != undefined)
-	document.getElementsByTagName('html')[0].style = 'transform: rotate(180deg);'
