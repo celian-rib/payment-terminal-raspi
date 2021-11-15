@@ -21,17 +21,18 @@ Os : Raspberry PI OS Lite
 ***
 - ### Update packages 
     - ```sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoclean && sudo apt-get autoremove```
+    - Better prompt : ```echo "PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;36m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\] '" >> ~/.bashrc```
 ***
 - ### Install git / pip
     - ```sudo apt-get install git && sudo apt-get -y install python3-pip```
 ***
-- ### Clone project (May need ssh key)
+- ### Clone project (May need ssh key) and install libs
     - ```git@github.com:celian-rib/asso-card.git```
 
 - ### Project config
     - Create ```.env``` file (See project root ../README.md)
     - Connect at least once over ssh to the backup server **to had it in known hosts**
-
+    - ```./install-libs.sh```
 ***
 - ### Install touch screen driver (This will restart the pi)
     - ```git clone https://github.com/waveshare/LCD-show.git```
@@ -42,7 +43,7 @@ Os : Raspberry PI OS Lite
 
     - ```sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox```
     - ```sudo apt-get install --no-install-recommends chromium-browser```
-    - En cas d'Erreur avec startx ```sudo mv /usr/share/X11/xorg.conf.d/99-fbturbo.conf ~```
+    - To prevent errors on startx launch : ```sudo mv /usr/share/X11/xorg.conf.d/99-fbturbo.conf ~```
 ***
 - ### Make the project auto start on boot
     - ```sudo raspi-config```
@@ -85,6 +86,11 @@ Os : Raspberry PI OS Lite
     ```nano ~/.zshrc```
         - decomment ```DISABLE_UPDATE_PROMPT="true"```
 
+***
+- ### Fast boot
+    [Details on this issue](https://github.com/celian-rib/asso-card/issues/9)
+    
+***
 <br/>
 <br/>
 <br/>
@@ -116,3 +122,11 @@ Os : Raspberry PI OS Lite
 # 3) Wiring
 
 <img width="800px" src="https://github.com/celian-rib/asso-card/blob/main/hardware/img/i2c_wiring.png?raw=true" />
+
+# 4) Hardware known issues
+
+- Some foam has to placed underneath the screen to prevent it from moving too much 
+    - (This has lead to the screen getting blank while using the device)
+
+
+- The USB connector on the raspberry may become loose in a near future.
