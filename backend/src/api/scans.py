@@ -92,7 +92,7 @@ class Scans(Resource):
     def get(self, count, **kwargs):
         last_scans = []
         with Database(auto_commit=True) as db:
-            result = db.query(Scan).order_by(Scan.date.desc()).limit(count)
+            result = db.query(Scan).limit(count)
             for scan in result:
                 card_uid = scan.card_uid
                 scan = scan.to_public_dict(

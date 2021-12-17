@@ -97,15 +97,7 @@ function parseURLParams(url) {
  * @param price prix à mettre au bon format
  * @return un string formaté pour le prix
  */
-function getPriceString(price) {
-	if ((price / 100) % 1 != 0) {
-		//decimal number
-		return (price / 100) + '0€';
-	} else {
-		// non decimal number
-		return (price / 100) + '.00€';
-	}
-}
+const getPriceString = (price) => (price / 100) + ((price / 100) % 1 != 0 ? '0€' : '.00€');
 
 /**
  * Affiche une popup en plein ecran avec deux bouton
