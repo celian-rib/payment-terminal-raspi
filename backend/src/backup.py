@@ -24,8 +24,8 @@ def send_backup():
         username=os.environ.get('SFTP_USERNAME'),
         password=base64.b64decode(os.environ.get("SFTP_KEY"))
     ) as sftp:
-        date = datetime.now().strftime("%d_%m_%Y_%H:%M:%S")
-        backup_file = os.environ.get('SFTP_HOST_PATH') + '/db_backup_' + date + '.sqlite3'
+        date = datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
+        backup_file = os.environ.get('SFTP_HOST_PATH') + '/db_' + date + '.sqlite3'
         sftp.put(DB_PATH, backup_file)
 
     print("Backup sent to ", os.environ.get('SFTP_HOST'))
