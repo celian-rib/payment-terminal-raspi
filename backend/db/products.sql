@@ -2,6 +2,10 @@
 -- "sqlite3 dev.sqlite3 < products.sql"
 
 delete from products;
+
+-- id, name, price, color, asso_price
+-- /!\ les prix sont en int : 1.50€ -> 150     2.00€ -> 200      0.60€ -> 60
+
 insert into products values (1, "Boisson", null, "#f6e58d", 60);
 insert into products values (2, "Twix", null, "#55efc4", 40);
 insert into products values (3, "Bueno", null, "#c7ecee", 70);
