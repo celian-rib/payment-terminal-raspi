@@ -16,17 +16,25 @@ Les dossier de chacun de ces modules possèdent des README expliquant leur insta
 
 ```cd ./hardware/src && python3 app.py```
 
+## Bases de données
 
-## Modifier / Ajouter / Supprimer les consos Asso
+Il existe 2 base de données :
 
-> Le système de consos asso implique d'avoir les élèments en vente stocké dans la bd (table "products")
+- dev.sqlite3 -> base de développement qui ne risque rien
+- prod.sqlite3 -> base de prod **HYPER CRITIQUE, IL Y A DE L'ARGENT DEDANS**
+
+La base prod.sqlite3 est normalement que dans la version du projet qui est dans la raspberry pi, donc durant toute manip de la raspberry (à travers ssh ou autre), il faut faire très attention à ce fichier !!!!
+
+## Modifier / Ajouter / Supprimer des produits de consos Asso
+
+> Le système de consos asso implique d'avoir les élèments en vente stockés dans la bd (table "products")
 
 Pour mettre à jour les produits il faut modifier puis lancer le script [products.sql](./backend/db/products.sql)
 ```
 sqlite3 fichierdelabd.sqlite3 < products.sql
 ```
 
-## Ajouter un membre Asso (administrateur)
+## Ajouter un membre Asso (Pour les consos asso)
 
 1. Se connecter en ssh à la raspberry pi (Cela implique qu'elle soit sur un réseau wifi connu)
 - Utilisateur : `pi`
@@ -45,7 +53,15 @@ update users
 set name = "NOM", first_name = "PRENOM", admin = 1 where user_id = <ID DE LA PERSONNE>;
 ```
 
-
 ## Ajouter un réseaux wifi
 
+TODO
 
+## Comment fonctionne la raspberry 
+
+Après le lancement
+
+- Si la raspberry est connectée à internet, elle pull la dernière version de la branche main
+- Lancement du backend
+- Lancement du front-end
+- Lancement de chromium et ouverture de la page web
