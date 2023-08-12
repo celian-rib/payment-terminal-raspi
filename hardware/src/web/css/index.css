@@ -11,8 +11,8 @@ div.mainContainer {
 }
 
 img.invert {
-    filter: invert(100%);
-    width: 90px;
+    /*filter: invert(100%);*/
+    width: 190px;
 }
 
 .transactionContainer {
